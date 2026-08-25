@@ -149,6 +149,8 @@ export default function Hero() {
     };
   }, []);
 
+
+  
   return (
     <section ref={pinRef} className="relative h-screen overflow-hidden" id="hero">
       <div
