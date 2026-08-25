@@ -67,7 +67,7 @@ export default function Education() {
               Digital Systems Web Technology (DSWT)
             </h3>
             <p className="mono-font mt-2 text-xs text-violet-glow">
-              Hamdard University, Karachi — Present
+              Hamdard University, Karachi 
             </p>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-silver">
               Studying digital systems and web technology at Hamdard University —

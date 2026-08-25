@@ -9,7 +9,7 @@ const EXPERIENCES = [
     company: "7CTECH — Karachi, Pakistan",
     role: "Full Stack Developer",
     year: "2025 — Present",
-    desc: "Working at 7CTECH, a software house delivering web, e-commerce and .NET solutions for international clients. Building production applications end-to-end — React/Next.js frontends, ASP.NET Core and Node.js backends, and client platforms like PEPP (pearlepp.co.uk).",
+    desc: "Working at 7CTECH, a software house delivering web, e-commerce and .NET solutions for international clients. Building production applications end-to-end — React/Next.js frontends, ASP.NET Core and Node.js backends, and client platforms.",
     tech: ["React", "Next.js", "ASP.NET Core", "Node.js", "SQL", "WordPress"],
   },
   {

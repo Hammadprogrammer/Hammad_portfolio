@@ -57,28 +57,38 @@ export default function ContactView() {
           </p>
           <h1 className="display-font font-semibold leading-[0.95]">
             <span className="block overflow-hidden">
-              <span data-ch-line className="block text-[12vw] text-ice md:text-[8vw]">
+              <span data-ch-line className="block text-[13vw] text-ice md:text-[80px]">
                 LET&apos;S MAKE
               </span>
             </span>
             <span className="block overflow-hidden">
-              <span data-ch-line className="text-gradient block text-[12vw] md:text-[8vw]">
+              <span data-ch-line className="text-gradient block text-[13vw] md:text-[80px]">
                 SOMETHING REAL.
               </span>
             </span>
           </h1>
-          <p data-ch-sub className="mt-10 max-w-md text-lg text-silver">
-            Have a product, idea or technical challenge? Drop a message —
-            I respond within 24 hours.
+          <p data-ch-sub className="mt-6 max-w-lg text-sm leading-relaxed text-silver md:text-base">
+            Have a product, an idea or a technical challenge? Whether it&apos;s a
+            full stack application, an e-commerce platform or an interactive
+            experience — drop a message and I&apos;ll get back to you within 24
+            hours. Currently available for freelance projects and full-time roles.
           </p>
         </div>
       </section>
 
       {/* ---------- form + info (editorial split) ---------- */}
       <section id="form" className="mx-auto max-w-[1600px] px-6 py-16 md:px-10 md:py-24">
-        <div className="grid gap-20 lg:grid-cols-[1.6fr_1fr]">
-          <div data-reveal="up">
-            <ContactForm />
+        <div className="grid items-start gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
+          <div data-reveal="up" className="glass rounded-3xl p-6 md:p-10">
+            <p className="mono-font text-[10px] uppercase tracking-[0.4em] text-silver">
+              Start a project
+            </p>
+            <h2 className="display-font mt-3 text-2xl font-semibold text-ice md:text-3xl">
+              Send a <span className="text-gradient">message.</span>
+            </h2>
+            <div className="mt-10">
+              <ContactForm />
+            </div>
           </div>
 
           <aside className="flex flex-col gap-10">
@@ -132,12 +142,12 @@ export default function ContactView() {
                 <div>
                   <p className="mono-font text-[10px] uppercase tracking-[0.3em] text-silver">GitHub</p>
                   <a
-                    href="https://github.com/"
+                    href="https://github.com/Hammadprogrammer"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link-underline text-sm text-ice"
                   >
-                    github.com/muhammadhammad
+                    github.com/Hammadprogrammer
                   </a>
                 </div>
               </li>
@@ -148,12 +158,12 @@ export default function ContactView() {
                 <div>
                   <p className="mono-font text-[10px] uppercase tracking-[0.3em] text-silver">LinkedIn</p>
                   <a
-                    href="https://linkedin.com/"
+                    href="https://www.linkedin.com/in/hammad-zahid-543a652a6/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link-underline text-sm text-ice"
                   >
-                    linkedin.com/in/muhammadhammad
+                    linkedin.com/in/hammad-zahid
                   </a>
                 </div>
               </li>

@@ -115,10 +115,10 @@ export default function ContactForm() {
       ref={formRef}
       onSubmit={onSubmit}
       noValidate
-      className="flex flex-col gap-10"
+      className="flex flex-col gap-8"
       aria-label="Contact form"
     >
-      <div className="grid gap-10 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
         <Field label="Full Name" htmlFor="name" error={errors.name}>
           <input
             id="name"
@@ -143,7 +143,7 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      <div className="grid gap-10 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
         <Field label="Project Type" htmlFor="projectType" error={errors.projectType}>
           <select
             id="projectType"
