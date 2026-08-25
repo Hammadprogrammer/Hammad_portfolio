@@ -17,7 +17,9 @@ export default function CustomCursor() {
 
   useEffect(() => {
     if (isTouchDevice() || prefersReducedMotion()) return;
-    setEnabled(true);
+    // defer out of the effect body: avoids a cascading render
+    const id = window.setTimeout(() => setEnabled(true), 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   useEffect(() => {

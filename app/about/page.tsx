@@ -5,10 +5,19 @@ import Experience from "@/components/about/Experience";
 import Skills from "@/components/about/Skills";
 import Education from "@/components/about/Education";
 
+const description =
+  "The story, experience and skills behind the code — Full Stack Developer at 7CTECH, Karachi. React, Next.js, ASP.NET Core, Node.js and interactive 3D.";
+
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "Engineer. Builder. Problem solver. The story, experience and skills behind the code.",
+  description,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About — Muhammad Hammad",
+    description,
+    url: "/about",
+    type: "profile",
+  },
 };
 
 export default function AboutPage() {

@@ -3,11 +3,9 @@
 import { useEffect, useLayoutEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Observer } from "gsap/Observer";
-import { Flip } from "gsap/Flip";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, Observer, Flip);
+  gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: "power3.out", duration: 1 });
 }
 
@@ -19,4 +17,4 @@ if (typeof window !== "undefined") {
 export const useGsapLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-export { gsap, ScrollTrigger, Observer, Flip };
+export { gsap, ScrollTrigger };

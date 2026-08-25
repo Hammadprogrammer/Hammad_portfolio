@@ -19,8 +19,9 @@ export default function Preloader() {
   useEffect(() => {
     if (prefersReducedMotion()) {
       markPreloaderDone();
-      setDone(true);
-      return;
+      // defer out of the effect body: no cascading render
+      const id = window.setTimeout(() => setDone(true), 0);
+      return () => window.clearTimeout(id);
     }
 
     const lenis = getLenis();
@@ -40,12 +41,12 @@ export default function Preloader() {
       tl.fromTo(
         "[data-pl-brand]",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }
       )
         // count 0 → 100 with realistic pacing
         .to(counter, {
           v: 100,
-          duration: 2.2,
+          duration: 0.75,
           ease: "power2.inOut",
           onUpdate: () => {
             if (countRef.current)
@@ -57,14 +58,14 @@ export default function Preloader() {
         .to("[data-pl-content]", {
           opacity: 0,
           y: -30,
-          duration: 0.5,
+          duration: 0.25,
           ease: "power2.in",
         })
         .call(() => markPreloaderDone())
         // wipe reveal
         .to(rootRef.current, {
           clipPath: "inset(0 0 100% 0)",
-          duration: 1,
+          duration: 0.5,
           ease: "power4.inOut",
         });
     }, rootRef);

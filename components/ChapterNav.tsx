@@ -40,9 +40,15 @@ export default function ChapterNav() {
   const [active, setActive] = useState(0);
   const chapters = CHAPTERS[pathname];
 
+  // reset the active dot when the route changes (adjust state during render)
+  const [trackedPath, setTrackedPath] = useState(pathname);
+  if (trackedPath !== pathname) {
+    setTrackedPath(pathname);
+    setActive(0);
+  }
+
   useEffect(() => {
     if (!chapters) return;
-    setActive(0);
 
     let raf = 0;
     const measure = () => {

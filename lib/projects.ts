@@ -36,7 +36,7 @@ export const projects: Project[] = [
     featured: true,
     size: "large",
     hue: "from-cyan-500/50 via-sky-600/30 to-blue-900/20",
-    cover: "/projects/pearlepp-1.png",
+    cover: "/projects/pearlepp-1.webp",
     overview:
       "A complete corporate platform for a London-based structural engineering consultancy: multi-level service pages, a content-heavy blog engine for SEO, project portfolio, careers and an instant quote flow — all built for performance and search visibility.",
     problem:
@@ -67,9 +67,9 @@ export const projects: Project[] = [
       "Quote requests converted directly from the site",
     ],
     gallery: [
-      { label: "Home & Hero", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/pearlepp-1.png" },
-      { label: "Vision & Services", gradient: "from-sky-400/40 to-indigo-900/40", image: "/projects/pearlepp-2.png" },
-      { label: "Expertise", gradient: "from-teal-400/40 to-cyan-900/40", image: "/projects/pearlepp-3.png" },
+      { label: "Home & Hero", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/pearlepp-1.webp" },
+      { label: "Vision & Services", gradient: "from-sky-400/40 to-indigo-900/40", image: "/projects/pearlepp-2.webp" },
+      { label: "Expertise", gradient: "from-teal-400/40 to-cyan-900/40", image: "/projects/pearlepp-3.webp" },
     ],
     demo: "https://www.pearlepp.co.uk/",
   },
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     featured: true,
     size: "small",
     hue: "from-amber-500/45 via-orange-600/25 to-red-900/20",
-    cover: "/projects/hireclassbuddy-1.png",
+    cover: "/projects/hireclassbuddy-1.webp",
     overview:
       "A conversion-focused platform for an academic assistance service: 20+ service and subject pages, trust-building sections (reviews, FAQs, guarantees) and lead forms connected to live chat and WhatsApp.",
     problem:
@@ -114,9 +114,9 @@ export const projects: Project[] = [
       "Lead-form conversions from every major page",
     ],
     gallery: [
-      { label: "Landing & Signup", gradient: "from-amber-400/40 to-orange-900/40", image: "/projects/hireclassbuddy-1.png" },
-      { label: "Services", gradient: "from-orange-400/40 to-red-900/40", image: "/projects/hireclassbuddy-2.png" },
-      { label: "Process & Trust", gradient: "from-yellow-400/40 to-amber-900/40", image: "/projects/hireclassbuddy-3.png" },
+      { label: "Landing & Signup", gradient: "from-amber-400/40 to-orange-900/40", image: "/projects/hireclassbuddy-1.webp" },
+      { label: "Services", gradient: "from-orange-400/40 to-red-900/40", image: "/projects/hireclassbuddy-2.webp" },
+      { label: "Process & Trust", gradient: "from-yellow-400/40 to-amber-900/40", image: "/projects/hireclassbuddy-3.webp" },
     ],
     demo: "https://hireclassbuddy.com/",
   },
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     featured: true,
     size: "wide",
     hue: "from-blue-500/50 via-indigo-600/30 to-slate-900/20",
-    cover: "/projects/allexamhelp-1.png",
+    cover: "/projects/allexamhelp-1.webp",
     overview:
       "A large-scale service platform for exam assistance: 16 service verticals and 15 subject pages, deal-of-the-day quote widget, live call and chat entry points, and stats-driven trust sections.",
     problem:
@@ -161,9 +161,9 @@ export const projects: Project[] = [
       "30+ SEO landing pages from one template system",
     ],
     gallery: [
-      { label: "Hero & Quote", gradient: "from-blue-400/40 to-indigo-900/40", image: "/projects/allexamhelp-1.png" },
-      { label: "Services Grid", gradient: "from-indigo-400/40 to-slate-900/40", image: "/projects/allexamhelp-2.png" },
-      { label: "Trust & Stats", gradient: "from-sky-400/40 to-blue-900/40", image: "/projects/allexamhelp-3.png" },
+      { label: "Hero & Quote", gradient: "from-blue-400/40 to-indigo-900/40", image: "/projects/allexamhelp-1.webp" },
+      { label: "Services Grid", gradient: "from-indigo-400/40 to-slate-900/40", image: "/projects/allexamhelp-2.webp" },
+      { label: "Trust & Stats", gradient: "from-sky-400/40 to-blue-900/40", image: "/projects/allexamhelp-3.webp" },
     ],
     demo: "https://allexamhelp.com/",
   },
@@ -179,7 +179,7 @@ export const projects: Project[] = [
     featured: true,
     size: "large",
     hue: "from-cyan-500/50 via-sky-600/30 to-blue-900/20",
-    cover: "/projects/ecommerce-storefront-v2.png",
+    cover: "/projects/ecommerce-storefront-v2.webp",
     overview:
       "A full commerce experience built end-to-end: customer storefront, secure checkout and a back-office admin. Designed for speed, SEO and conversion.",
     problem:
@@ -211,10 +211,10 @@ export const projects: Project[] = [
       "40% faster admin workflows vs. previous tooling",
     ],
     gallery: [
-      { label: "Storefront", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/ecommerce-storefront-v2.png" },
-      { label: "Checkout Flow", gradient: "from-sky-400/40 to-indigo-900/40", image: "/projects/ecommerce-platform-2.png" },
-      { label: "Admin Dashboard", gradient: "from-teal-400/40 to-cyan-900/40", image: "/projects/ecommerce-platform-3.png" },
-      { label: "Analytics", gradient: "from-blue-400/40 to-slate-900/40", image: "/projects/ecommerce-platform-4.png" },
+      { label: "Storefront", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/ecommerce-storefront-v2.webp" },
+      { label: "Checkout Flow", gradient: "from-sky-400/40 to-indigo-900/40", image: "/projects/ecommerce-platform-2.webp" },
+      { label: "Admin Dashboard", gradient: "from-teal-400/40 to-cyan-900/40", image: "/projects/ecommerce-platform-3.webp" },
+      { label: "Analytics", gradient: "from-blue-400/40 to-slate-900/40", image: "/projects/ecommerce-platform-4.webp" },
     ],
     demo: "https://example.com",
     github: "https://github.com/",
@@ -231,7 +231,7 @@ export const projects: Project[] = [
     featured: true,
     size: "small",
     hue: "from-violet-500/50 via-purple-600/30 to-indigo-900/20",
-    cover: "/projects/saas-dashboard-1.png",
+    cover: "/projects/saas-dashboard-1.webp",
     overview:
       "An analytics workspace for SaaS teams: configurable dashboards, live metrics and shareable reports — engineered to stay responsive with thousands of data points on screen.",
     problem:
@@ -261,9 +261,9 @@ export const projects: Project[] = [
       "Report generation time cut from minutes to seconds",
     ],
     gallery: [
-      { label: "Overview", gradient: "from-violet-400/40 to-purple-900/40", image: "/projects/saas-dashboard-1.png" },
-      { label: "Report Builder", gradient: "from-fuchsia-400/40 to-violet-900/40", image: "/projects/saas-dashboard-2.png" },
-      { label: "Live Metrics", gradient: "from-purple-400/40 to-indigo-900/40", image: "/projects/saas-dashboard-3.png" },
+      { label: "Overview", gradient: "from-violet-400/40 to-purple-900/40", image: "/projects/saas-dashboard-1.webp" },
+      { label: "Report Builder", gradient: "from-fuchsia-400/40 to-violet-900/40", image: "/projects/saas-dashboard-2.webp" },
+      { label: "Live Metrics", gradient: "from-purple-400/40 to-indigo-900/40", image: "/projects/saas-dashboard-3.webp" },
     ],
     demo: "https://example.com",
     github: "https://github.com/",
@@ -280,7 +280,7 @@ export const projects: Project[] = [
     featured: true,
     size: "wide",
     hue: "from-teal-500/50 via-emerald-600/30 to-cyan-900/20",
-    cover: "/projects/backend-system-2.png",
+    cover: "/projects/backend-system-2.webp",
     overview:
       "The invisible backbone: a distributed backend handling auth, event ingestion and async processing with full observability.",
     problem:
@@ -311,9 +311,9 @@ export const projects: Project[] = [
       "Zero-downtime deployments achieved",
     ],
     gallery: [
-      { label: "Architecture", gradient: "from-teal-400/40 to-emerald-900/40", image: "/projects/backend-system-1.png" },
-      { label: "Observability", gradient: "from-emerald-400/40 to-cyan-900/40", image: "/projects/backend-system-2.png" },
-      { label: "Queue Topology", gradient: "from-green-400/40 to-teal-900/40", image: "/projects/backend-system-3.png" },
+      { label: "Architecture", gradient: "from-teal-400/40 to-emerald-900/40", image: "/projects/backend-system-1.webp" },
+      { label: "Observability", gradient: "from-emerald-400/40 to-cyan-900/40", image: "/projects/backend-system-2.webp" },
+      { label: "Queue Topology", gradient: "from-green-400/40 to-teal-900/40", image: "/projects/backend-system-3.webp" },
     ],
     github: "https://github.com/",
   },
@@ -329,7 +329,7 @@ export const projects: Project[] = [
     featured: true,
     size: "tall",
     hue: "from-fuchsia-500/50 via-violet-600/30 to-purple-900/20",
-    cover: "/projects/interactive-experience-1.png",
+    cover: "/projects/interactive-experience-1.webp",
     overview:
       "An experiment in narrative WebGL — the page is a camera path, and scrolling is the director. Custom shaders, GSAP-driven timelines, fully responsive.",
     problem:
@@ -358,9 +358,9 @@ export const projects: Project[] = [
       "Runs at 60fps on mid-range mobile",
     ],
     gallery: [
-      { label: "Scene 01", gradient: "from-fuchsia-400/40 to-violet-900/40", image: "/projects/interactive-experience-1.png" },
-      { label: "Scene 02", gradient: "from-violet-400/40 to-fuchsia-900/40", image: "/projects/interactive-experience-2.png" },
-      { label: "Shader Detail", gradient: "from-pink-400/40 to-purple-900/40", image: "/projects/interactive-experience-3.png" },
+      { label: "Scene 01", gradient: "from-fuchsia-400/40 to-violet-900/40", image: "/projects/interactive-experience-1.webp" },
+      { label: "Scene 02", gradient: "from-violet-400/40 to-fuchsia-900/40", image: "/projects/interactive-experience-2.webp" },
+      { label: "Shader Detail", gradient: "from-pink-400/40 to-purple-900/40", image: "/projects/interactive-experience-3.webp" },
     ],
     demo: "https://example.com",
     github: "https://github.com/",
@@ -376,7 +376,7 @@ export const projects: Project[] = [
     year: "2024",
     size: "small",
     hue: "from-sky-500/50 via-cyan-600/30 to-blue-900/20",
-    cover: "/projects/employee-management-1.png",
+    cover: "/projects/employee-management-1.webp",
     overview:
       "A focused internal tool for HR teams: fast record management, search that feels instant, and an audit trail for compliance.",
     problem: "HR data lived in spreadsheets — error-prone, unauditable and slow to search.",
@@ -397,8 +397,8 @@ export const projects: Project[] = [
     challenges: ["Bulk import validation at scale — solved with streamed row-by-row validation."],
     results: ["Record lookup time reduced from minutes to milliseconds"],
     gallery: [
-      { label: "Dashboard", gradient: "from-sky-400/40 to-cyan-900/40", image: "/projects/employee-management-1.png" },
-      { label: "Records", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/employee-management-2.png" },
+      { label: "Dashboard", gradient: "from-sky-400/40 to-cyan-900/40", image: "/projects/employee-management-1.webp" },
+      { label: "Records", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/employee-management-2.webp" },
     ],
     github: "https://github.com/",
   },
@@ -413,7 +413,7 @@ export const projects: Project[] = [
     year: "2024",
     size: "small",
     hue: "from-amber-500/45 via-orange-600/25 to-red-900/20",
-    cover: "/projects/expense-tracker-1.png",
+    cover: "/projects/expense-tracker-1.webp",
     overview:
       "A personal finance app that turns raw transactions into clear monthly narratives with charts and budget alerts.",
     problem: "Budgeting apps either overwhelm with features or oversimplify into uselessness.",
@@ -424,8 +424,8 @@ export const projects: Project[] = [
     challenges: ["Offline/online sync conflicts — solved with last-write-wins + manual merge UI."],
     results: ["4.8★ average user feedback in beta"],
     gallery: [
-      { label: "Overview", gradient: "from-amber-400/40 to-orange-900/40", image: "/projects/expense-tracker-1.png" },
-      { label: "Charts", gradient: "from-orange-400/40 to-red-900/40", image: "/projects/expense-tracker-2.png" },
+      { label: "Overview", gradient: "from-amber-400/40 to-orange-900/40", image: "/projects/expense-tracker-1.webp" },
+      { label: "Charts", gradient: "from-orange-400/40 to-red-900/40", image: "/projects/expense-tracker-2.webp" },
     ],
     github: "https://github.com/",
   },
@@ -440,7 +440,7 @@ export const projects: Project[] = [
     year: "2023",
     size: "wide",
     hue: "from-blue-500/50 via-indigo-600/30 to-slate-900/20",
-    cover: "/projects/weather-app-1.png",
+    cover: "/projects/weather-app-1.webp",
     overview:
       "A weather client focused on glanceability: current conditions, a 5-day outlook and beautiful animated condition states.",
     problem: "Most weather sites bury the forecast under ads and noise.",
@@ -451,8 +451,8 @@ export const projects: Project[] = [
     challenges: ["API rate limits — solved with edge caching and stale-while-revalidate."],
     results: ["Loads in under 1s on 3G"],
     gallery: [
-      { label: "Search", gradient: "from-blue-400/40 to-indigo-900/40", image: "/projects/weather-app-2.png" },
-      { label: "Forecast", gradient: "from-indigo-400/40 to-slate-900/40", image: "/projects/weather-app-1.png" },
+      { label: "Search", gradient: "from-blue-400/40 to-indigo-900/40", image: "/projects/weather-app-2.webp" },
+      { label: "Forecast", gradient: "from-indigo-400/40 to-slate-900/40", image: "/projects/weather-app-1.webp" },
     ],
     demo: "https://example.com",
     github: "https://github.com/",

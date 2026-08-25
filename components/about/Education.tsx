@@ -51,7 +51,7 @@ export default function Education() {
             className="glass relative min-h-[280px] overflow-hidden rounded-3xl md:min-h-full"
           >
             <Image
-              src="/edu/hamdard-university.jpg"
+              src="/edu/hamdard-university.webp"
               alt="Hamdard University campus, Karachi"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -108,7 +108,7 @@ export default function Education() {
             className="glass group relative min-h-[280px] cursor-zoom-in overflow-hidden rounded-3xl md:order-2 md:min-h-full"
           >
             <Image
-              src="/edu/saylani-certificate-b11.png"
+              src="/edu/saylani-certificate-b11.webp"
               alt="Saylani Mass IT Training certificate"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -143,7 +143,7 @@ export default function Education() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src="/edu/saylani-certificate-b11.png"
+              src="/edu/saylani-certificate-b11.webp"
               alt="Saylani Mass IT Training certificate — full view"
               fill
               sizes="100vw"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { scrollState, isTouchDevice } from "@/lib/scroll-state";
 
@@ -161,22 +161,30 @@ function Rings({ mobile }: { mobile: boolean }) {
 /* ------------------------------------------------------------------ */
 /* Particle field                                                      */
 /* ------------------------------------------------------------------ */
+/** Deterministic PRNG so the particle field is stable across renders. */
+function buildParticlePositions(count: number) {
+  const arr = new Float32Array(count * 3);
+  let seed = 0x9e3779b9;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    return seed / 0xffffffff;
+  };
+  for (let i = 0; i < count; i++) {
+    const r = 6 + rand() * 14;
+    const theta = rand() * Math.PI * 2;
+    const phi = Math.acos(2 * rand() - 1);
+    arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.6;
+    arr[i * 3 + 2] = r * Math.cos(phi) - 4;
+  }
+  return arr;
+}
+
 function Particles({ mobile }: { mobile: boolean }) {
   const ref = useRef<THREE.Points>(null!);
   const count = mobile ? 350 : 1400;
 
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 6 + Math.random() * 14;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.6;
-      arr[i * 3 + 2] = r * Math.cos(phi) - 4;
-    }
-    return arr;
-  }, [count]);
+  const positions = useMemo(() => buildParticlePositions(count), [count]);
 
   const col = useMemo(() => new THREE.Color(PALETTES.home.particles), []);
 
@@ -208,9 +216,9 @@ function Particles({ mobile }: { mobile: boolean }) {
 /* Camera rig — moves with scroll + mouse                              */
 /* ------------------------------------------------------------------ */
 function Rig({ mobile }: { mobile: boolean }) {
-  const { camera } = useThree();
-
-  useFrame((_, delta) => {
+  // camera is read from the per-frame state (not a hook value) so it stays mutable
+  useFrame((state, delta) => {
+    const { camera } = state;
     const h = scrollState.hero;
     const p = scrollState.page;
 
