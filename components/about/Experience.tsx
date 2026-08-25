@@ -134,7 +134,7 @@ export default function Experience() {
                     : "md:left-0 md:-translate-x-1/2"
                 }`}
               />
-              <div className="glass rounded-2xl p-6 md:p-8">
+              <div className="glass rounded-2xl p-5 md:p-8">
                 <span className="mono-font text-[10px] uppercase tracking-[0.3em] text-cyan-glow">
                   {xp.year}
                 </span>

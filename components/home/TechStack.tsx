@@ -201,10 +201,10 @@ export default function TechStack() {
           />
         </div>
 
-        {/* desktop: pinned horizontal track / mobile: native swipe */}
+        {/* desktop: pinned horizontal track / mobile: 2-column grid (everything visible) */}
         <div
           ref={trackRef}
-          className="mt-14 flex items-center gap-6 overflow-x-auto px-6 pb-6 [scrollbar-width:none] md:mt-16 md:w-max md:overflow-visible md:px-[10vw] md:pb-0"
+          className="mt-14 grid grid-cols-2 gap-4 px-6 pb-6 md:mt-16 md:flex md:w-max md:items-center md:gap-6 md:overflow-visible md:px-[10vw] md:pb-0"
           style={{ perspective: "800px" }}
         >
           {TECHS.map((t, i) => {
@@ -217,7 +217,7 @@ export default function TechStack() {
                   key={t.name}
                   data-tech
                   style={themeVars(t.color)}
-                  className={`glass group relative flex h-48 w-52 shrink-0 flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br p-5 ${t.grad} transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:h-64 md:w-72`}
+                  className={`glass group relative flex h-44 w-full shrink-0 flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br p-4 ${t.grad} transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:h-64 md:w-72 md:p-5`}
                 >
                   <div className="flex items-start justify-between">
                     <Icon aria-hidden="true" className="h-8 w-8 md:h-10 md:w-10" style={{ color: t.color }} />
@@ -232,7 +232,7 @@ export default function TechStack() {
                     style={{ color: t.color }}
                   />
                   <span
-                    className="display-font relative text-2xl font-semibold md:text-3xl"
+                    className="display-font relative text-lg font-semibold leading-tight md:text-3xl"
                     style={{ color: t.color }}
                   >
                     {t.name}
@@ -247,7 +247,7 @@ export default function TechStack() {
                   key={t.name}
                   data-tech
                   style={themeVars(t.color)}
-                  className="group relative flex h-40 w-48 shrink-0 flex-col justify-between rounded-2xl border border-ice/15 bg-transparent p-5 transition-all duration-500 hover:border-[var(--accent)] hover:shadow-[0_0_50px_var(--glow)] md:h-52 md:w-60"
+                  className="group relative flex h-44 w-full shrink-0 flex-col justify-between rounded-2xl border border-ice/15 bg-transparent p-4 transition-all duration-500 hover:border-[var(--accent)] hover:shadow-[0_0_50px_var(--glow)] md:h-52 md:w-60 md:p-5"
                 >
                   <div className="flex items-center justify-between">
                     <Icon aria-hidden="true" className="h-7 w-7 md:h-9 md:w-9" style={{ color: t.color }} />
@@ -260,7 +260,7 @@ export default function TechStack() {
                       {t.tag}
                     </span>
                     <span
-                      className="display-font mt-2 block text-xl font-semibold md:text-2xl"
+                      className="display-font mt-2 block text-lg font-semibold leading-tight md:text-2xl"
                       style={{ color: t.color }}
                     >
                       {t.name}
@@ -279,7 +279,7 @@ export default function TechStack() {
                 key={t.name}
                 data-tech
                 style={themeVars(t.color)}
-                className="glass group relative flex h-44 w-44 shrink-0 flex-col items-center justify-center gap-3 overflow-hidden rounded-full p-6 text-center transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:h-56 md:w-56"
+                className="glass group relative flex aspect-square h-auto w-full shrink-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-full p-4 text-center transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:aspect-auto md:h-56 md:w-56 md:gap-3 md:p-6"
               >
                 <div
                   className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b opacity-60 ${t.grad}`}
@@ -293,7 +293,7 @@ export default function TechStack() {
                   {t.tag}
                 </span>
                 <span
-                  className="display-font relative text-lg font-semibold md:text-xl"
+                  className="display-font relative text-base font-semibold leading-tight md:text-xl"
                   style={{ color: t.color }}
                 >
                   {t.name}

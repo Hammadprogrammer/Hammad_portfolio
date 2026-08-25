@@ -24,8 +24,8 @@ export default function Footer() {
       className="relative z-10 border-t border-ice/5 bg-midnight/70 backdrop-blur-xl"
     >
       <div className="mx-auto max-w-[1600px] px-6 py-16 md:px-10">
-        <div className="grid gap-12 md:grid-cols-[1.5fr_1fr_1fr_auto]">
-          <div data-reveal="up" className="flex flex-col gap-4">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.5fr_1fr_1fr_auto] md:gap-12">
+          <div data-reveal="up" className="col-span-2 flex flex-col gap-4 md:col-span-1">
             <Link href="/" className="flex items-center gap-3">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-glow/40">
                 <span className="mono-font text-xs text-cyan-glow">MH</span>
@@ -68,13 +68,13 @@ export default function Footer() {
             <h3 className="mono-font mb-5 text-[10px] uppercase tracking-[0.3em] text-silver">
               Connect
             </h3>
-            <div className="flex gap-3">
+            <div className="flex flex-nowrap gap-2 md:gap-3">
               <a
                 href="https://github.com/Hammadprogrammer"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-ice/15 text-silver transition-colors hover:border-cyan-glow/50 hover:text-cyan-glow"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ice/15 text-silver transition-colors hover:border-cyan-glow/50 hover:text-cyan-glow md:h-10 md:w-10"
               >
                 <GithubIcon className="h-4 w-4" />
               </a>
@@ -83,7 +83,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-ice/15 text-silver transition-colors hover:border-cyan-glow/50 hover:text-cyan-glow"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ice/15 text-silver transition-colors hover:border-cyan-glow/50 hover:text-cyan-glow md:h-10 md:w-10"
               >
                 <LinkedinIcon className="h-4 w-4" />
               </a>
@@ -92,7 +92,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-ice/15 text-silver transition-colors hover:border-cyan-glow/50 hover:text-cyan-glow"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ice/15 text-silver transition-colors hover:border-cyan-glow/50 hover:text-cyan-glow md:h-10 md:w-10"
               >
                 <MessageCircle className="h-4 w-4" />
               </a>
@@ -101,7 +101,7 @@ export default function Footer() {
             <p className="mono-font mt-1 text-xs text-silver">Karachi, Pakistan</p>
           </div>
 
-          <div data-reveal="scale" className="flex items-start justify-end">
+          <div data-reveal="scale" className="col-span-2 flex items-start justify-start md:col-span-1 md:justify-end">
             <button
               ref={topRef}
               type="button"

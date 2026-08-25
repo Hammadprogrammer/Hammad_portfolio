@@ -120,7 +120,7 @@ export default function ProjectGrid() {
           >
             <article
               data-card-inner
-              className={`glass relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br ${p.hue} p-8 transition-shadow duration-500 hover:shadow-[0_20px_80px_rgba(34,224,255,0.10)] md:p-10`}
+              className={`glass relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br ${p.hue} p-6 transition-shadow duration-500 hover:shadow-[0_20px_80px_rgba(34,224,255,0.10)] md:p-10`}
               style={{ transformStyle: "preserve-3d" }}
             >
               {p.cover && (
@@ -150,7 +150,7 @@ export default function ProjectGrid() {
               </div>
 
               <div className="relative mt-auto pt-16">
-                <h3 className="display-font text-2xl font-semibold text-ice transition-transform duration-500 group-hover:-translate-y-1 md:text-4xl">
+                <h3 className="display-font text-2xl font-semibold text-ice transition-transform duration-500 group-hover:-translate-y-1 md:text-3xl lg:text-4xl">
                   {p.title}
                 </h3>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-silver">

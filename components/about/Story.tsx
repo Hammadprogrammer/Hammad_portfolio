@@ -152,7 +152,7 @@ export default function Story() {
           >
             <div data-stage-inner className="max-w-xl">
               <div className="flex items-baseline gap-6">
-                <span className={`display-font text-7xl font-bold opacity-45 md:text-9xl ${s.accent}`}>
+                <span className={`display-font text-6xl font-bold opacity-45 md:text-9xl ${s.accent}`}>
                   {s.id}
                 </span>
                 <div>

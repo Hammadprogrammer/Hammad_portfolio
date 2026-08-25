@@ -118,8 +118,8 @@ export default function Hero() {
       });
 
       mm.add("(max-width: 767px)", () => {
-        // lighter mobile pin: shorter distance, no scatter
-        gsap.timeline({
+        // lighter mobile pin: text out, then keywords take the stage
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pin,
             start: "top top",
@@ -128,11 +128,17 @@ export default function Hero() {
             scrub: 1,
             onUpdate: (self) => {
               scrollState.hero = self.progress;
-              showText(self.progress < 0.5);
+              showText(self.progress < 0.4);
             },
             onLeaveBack: () => showText(true),
           },
         });
+        tl.fromTo(
+          "[data-hero-kw]",
+          { yPercent: 100, opacity: 0 },
+          { yPercent: 0, opacity: 1, stagger: 0.06, duration: 0.25, immediateRender: false },
+          0.5
+        ).to("[data-hero-kw-label]", { opacity: 1, duration: 0.1 }, 0.52);
       });
     }, pin);
 
@@ -154,7 +160,7 @@ export default function Hero() {
           <p
             data-hero-el
             data-hero-label
-            className="mono-font  mt-[100px] flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-cyan-glow opacity-0"
+            className="mono-font mt-0 md:mt-[100px] flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-cyan-glow opacity-0"
           >
             <span>01</span>
             <span className="inline-block h-px w-10 bg-cyan-glow/60 " />
@@ -166,7 +172,10 @@ export default function Hero() {
             data-hero-meta
             className="mono-font mt-5 text-xs uppercase tracking-[0.25em] text-silver opacity-0 md:text-sm"
           >
-            Hi, I&apos;m <span className="font-semibold text-ice text[30px]">Muhammad Hammad</span>
+            Hi, I&apos;m{" "}
+            <span className="font-semibold text-ice text-base md:text-[30px]">
+              Muhammad Hammad
+            </span>
           </p>
 
           <h1 data-hero-type className="display-font mt-4 font-semibold leading-[0.95] ">
@@ -175,7 +184,7 @@ export default function Hero() {
                 <span
                   data-hero-el
                   data-hero-line
-                  className={`block text-[80px] ${
+                  className={`block text-[11vw] sm:text-[52px] md:text-[80px] ${
                     i === 1 ? "text-gradient" : "text-ice"
                   } opacity-0`}
                 >
@@ -201,7 +210,7 @@ export default function Hero() {
         <div
           ref={keywordsRef}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 hidden flex-col items-center justify-center md:flex"
+          className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center"
         >
           <p
             data-hero-kw-label
@@ -213,7 +222,7 @@ export default function Hero() {
             <span key={k.text} className="block overflow-hidden">
               <span
                 data-hero-kw
-                className={`display-font block text-[6.5vw] font-semibold leading-[1.08] opacity-0 ${k.style}`}
+                className={`display-font block text-[9vw] font-semibold leading-[1.08] opacity-0 md:text-[6.5vw] ${k.style}`}
               >
                 {k.text}
               </span>

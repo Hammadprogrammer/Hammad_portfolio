@@ -124,12 +124,12 @@ export default function Testimonials() {
       </div>
 
       <div className="mt-12 flex flex-col gap-6">
-        <div data-tst-row="a" className="flex gap-6 overflow-x-auto px-6 pb-2 [scrollbar-width:none] md:justify-center md:overflow-visible md:pb-0">
+        <div data-tst-row="a" className="flex flex-col gap-6 px-6 md:flex-row md:justify-center md:overflow-visible md:pb-0">
           {rowA.map((t) => (
             <TstCard key={t.name} t={t} />
           ))}
         </div>
-        <div data-tst-row="b" className="flex gap-6 overflow-x-auto px-6 pb-2 [scrollbar-width:none] md:justify-center md:overflow-visible md:pb-0">
+        <div data-tst-row="b" className="flex flex-col gap-6 px-6 md:flex-row md:justify-center md:overflow-visible md:pb-0">
           {rowB.map((t) => (
             <TstCard key={t.name} t={t} />
           ))}
@@ -143,7 +143,7 @@ function TstCard({ t }: { t: (typeof TESTIMONIALS)[number] }) {
   return (
     <figure
       data-tst-card
-      className={`glass w-[85vw] shrink-0 rounded-3xl border ${t.tone} p-7 md:w-[420px] md:shrink`}
+      className={`glass w-full shrink-0 rounded-3xl border ${t.tone} p-6 md:w-[420px] md:shrink md:p-7`}
     >
       <Quote className="h-5 w-5 text-cyan-glow/60" aria-hidden="true" />
       <blockquote className="mt-4 text-sm leading-relaxed text-ice/90">

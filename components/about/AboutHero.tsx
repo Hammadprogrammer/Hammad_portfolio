@@ -63,7 +63,7 @@ export default function AboutHero() {
             </span>
           </span>
         </h1>
-        <p data-ah-sub className="mt-8 max-w-3xl text-lg leading-relaxed text-silver md:text-2xl">
+        <p data-ah-sub className="mt-8 max-w-3xl text-base leading-relaxed text-silver md:text-2xl">
           Engineer. Builder. Problem solver. I&apos;m a full stack developer from
           Karachi who loves turning complex ideas into fast, reliable and
           engaging digital products — from scalable backend systems and seamless

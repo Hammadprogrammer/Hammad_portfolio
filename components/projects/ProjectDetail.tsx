@@ -91,7 +91,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
   return (
     <div ref={scope}>
       {/* ---------- hero ---------- */}
-      <section ref={heroRef} className="relative px-6 pt-32 md:px-10">
+      <section ref={heroRef} className="relative px-6 pt-28 md:px-10 md:pt-32">
         <div className="mx-auto max-w-[1600px]">
           <Link
             href="/projects"
@@ -280,12 +280,12 @@ export default function ProjectDetail({ project }: { project: Project }) {
           </div>
           <div
             ref={galleryRef}
-            className="mt-10 flex gap-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] md:w-max md:overflow-visible md:px-[10vw] md:pb-0"
+            className="mt-10 flex flex-col gap-6 px-6 md:w-max md:flex-row md:overflow-visible md:px-[10vw] md:pb-0"
           >
             {project.gallery.map((g) => (
               <figure
                 key={g.label}
-                className={`glass relative flex aspect-[16/10] w-[80vw] shrink-0 items-end overflow-hidden rounded-3xl bg-gradient-to-br p-6 md:w-[46vw] ${g.gradient}`}
+                className={`glass relative flex aspect-[16/10] w-full shrink-0 items-end overflow-hidden rounded-3xl bg-gradient-to-br p-6 md:w-[46vw] ${g.gradient}`}
               >
                 {g.image && (
                   <Image

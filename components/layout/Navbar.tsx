@@ -44,13 +44,13 @@ export default function Navbar() {
       document.body.style.overflow = "hidden";
       gsap.fromTo(
         menu,
-        { clipPath: "inset(0 0 100% 0)" },
-        { clipPath: "inset(0 0 0% 0)", duration: 0.6, ease: "power4.inOut" }
+        { xPercent: 100 },
+        { xPercent: 0, duration: 0.55, ease: "power4.out" }
       );
       gsap.fromTo(
         menu.querySelectorAll("[data-menu-link]"),
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.07, delay: 0.25, duration: 0.7 }
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, stagger: 0.07, delay: 0.2, duration: 0.6 }
       );
     } else {
       lenis?.start();
@@ -63,11 +63,12 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "backdrop-blur-xl bg-void/75 border-b border-ice/10" : ""
-      }`}
-    >
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+          scrolled ? "backdrop-blur-xl bg-void/75 border-b border-ice/10" : ""
+        }`}
+      >
       <nav
         className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 md:px-10"
         aria-label="Primary"
@@ -77,7 +78,7 @@ export default function Navbar() {
             <span className="mono-font text-xs font-medium text-cyan-glow">MH</span>
             <span className="absolute inset-0 -z-10 bg-cyan-glow/10 opacity-0 transition-opacity group-hover:opacity-100" />
           </span>
-          <span className="hidden flex-col leading-tight sm:flex">
+          <span className="flex flex-col leading-tight">
             <span className="display-font text-sm font-medium tracking-wide text-ice">
               Muhammad Hammad
             </span>
@@ -124,15 +125,35 @@ export default function Navbar() {
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-      </nav>
+        </nav>
+      </header>
 
-      {/* mobile menu */}
+      {/* overlay — sibling of <header> so its z-index isn't trapped by it */}
+      <div
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+        className={`fixed inset-0 z-[95] bg-void/80 backdrop-blur-sm md:hidden ${
+          open ? "block" : "hidden"
+        }`}
+      />
+
+      {/* mobile menu — right side drawer, 90% width */}
       <div
         ref={menuRef}
-        className={`fixed inset-0 top-0 z-40 flex-col justify-between bg-midnight/95 px-6 pb-10 pt-28 backdrop-blur-2xl md:hidden ${
+        style={{ backgroundColor: "var(--midnight)" }}
+        className={`fixed inset-y-0 right-0 z-[100] w-[90%] flex-col justify-between border-l border-ice/10 px-6 pb-10 pt-20 md:hidden ${
           open ? "flex" : "hidden"
         }`}
       >
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+          className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-ice/20 text-ice transition-colors hover:border-cyan-glow hover:text-cyan-glow"
+        >
+          <X className="h-5 w-5" />
+        </button>
+
         <ul className="flex flex-col gap-2">
           {LINKS.map((l, i) => (
             <li key={l.href} data-menu-link>
@@ -163,6 +184,6 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-    </header>
+    </>
   );
 }

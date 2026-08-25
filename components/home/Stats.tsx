@@ -92,7 +92,7 @@ export default function Stats() {
             className="glass group relative overflow-hidden rounded-3xl p-7 text-center transition-shadow duration-500 hover:shadow-[0_0_50px_rgba(34,224,255,0.12)] md:p-10"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(34,224,255,0.08),transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            <p className={`display-font text-5xl font-semibold tabular-nums md:text-6xl ${s.tone}`}>
+            <p className={`display-font text-4xl font-semibold tabular-nums md:text-6xl ${s.tone}`}>
               <span data-stat-num data-value={s.value}>
                 0
               </span>
