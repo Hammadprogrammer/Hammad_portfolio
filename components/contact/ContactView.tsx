@@ -116,12 +116,12 @@ export default function ContactView() {
                 <div>
                   <p className="mono-font text-[10px] uppercase tracking-[0.3em] text-silver">WhatsApp</p>
                   <a
-                    href="https://wa.me/923221870539"
+                    href="https://wa.me/923118270539"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link-underline text-sm text-ice"
                   >
-                    +92 322 1870539
+                    +92 311 8270539
                   </a>
                 </div>
               </li>

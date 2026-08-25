@@ -25,40 +25,34 @@ export default function Hero() {
     const content = contentRef.current;
     if (!pin || !content) return;
 
+    const textEls = content.querySelectorAll<HTMLElement>("[data-hero-el]");
+
     if (prefersReducedMotion()) {
-      gsap.set(content.querySelectorAll("[data-hero-el]"), { opacity: 1, y: 0 });
+      gsap.set(textEls, { opacity: 1, x: 0, y: 0 });
       return;
     }
 
     let cancelWait = () => {};
     const ctx = gsap.context(() => {
-      /* ---------- load timeline (waits for preloader) ---------- */
-      const load = gsap.timeline({ paused: true, delay: 0.15 });
-      cancelWait = whenPreloaderDone(() => load.play());
-      load
-        .fromTo(
-          "[data-hero-label]",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8 }
-        )
-        .fromTo(
-          "[data-hero-line]",
-          { yPercent: 110, opacity: 0 },
-          { yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.14, ease: "power4.out" },
-          "-=0.3"
-        )
-        .fromTo(
-          "[data-hero-meta]",
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 },
-          "-=0.5"
-        )
-        .fromTo(
-          "[data-hero-cta]",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          "-=0.2"
-        );
+      /* ---------- text in/out — slides in from the left, deterministic ---------- */
+      let textShown = false;
+      const showText = (show: boolean) => {
+        if (textShown === show) return;
+        textShown = show;
+        gsap.to(textEls, {
+          autoAlpha: show ? 1 : 0,
+          x: show ? 0 : -70,
+          duration: show ? 0.8 : 0.4,
+          stagger: show ? 0.07 : 0.03,
+          ease: show ? "power3.out" : "power2.in",
+          overwrite: true,
+        });
+      };
+
+      gsap.set(textEls, { autoAlpha: 0, x: -70 });
+
+      /* entrance after preloader */
+      cancelWait = whenPreloaderDone(() => showText(true));
 
       /* ---------- pinned scroll choreography ---------- */
       const mm = gsap.matchMedia();
@@ -79,31 +73,20 @@ export default function Hero() {
             },
             onUpdate: (self) => {
               scrollState.hero = self.progress;
+              // text slides out past 18% and slides back in from the left
+              // every time the user returns to the top of the hero
+              showText(self.progress < 0.18);
             },
             onLeave: () => (scrollState.hero = 1),
-            onLeaveBack: () => (scrollState.hero = 0),
+            onLeaveBack: () => {
+              scrollState.hero = 0;
+              showText(true);
+            },
           },
         });
 
-        // phase 1 → 2: main typography lifts away
-        tl.to(
-          "[data-hero-line]",
-          {
-            yPercent: -70,
-            opacity: 0,
-            filter: "blur(10px)",
-            stagger: 0.05,
-            duration: 0.22,
-          },
-          0.15
-        )
-          .to(
-            "[data-hero-label], [data-hero-meta], [data-hero-cta]",
-            { opacity: 0, duration: 0.15 },
-            0.17
-          )
-          // phase 2: keywords take over the empty space (core travels across)
-          .fromTo(
+        // phase 2: keywords take over the empty space (core travels across)
+        tl.fromTo(
             "[data-hero-kw]",
             { yPercent: 100, opacity: 0, filter: "blur(8px)" },
             {
@@ -136,17 +119,20 @@ export default function Hero() {
 
       mm.add("(max-width: 767px)", () => {
         // lighter mobile pin: shorter distance, no scatter
-        const tl = gsap.timeline({
+        gsap.timeline({
           scrollTrigger: {
             trigger: pin,
             start: "top top",
             end: "+=120%",
             pin: true,
             scrub: 1,
-            onUpdate: (self) => (scrollState.hero = self.progress),
+            onUpdate: (self) => {
+              scrollState.hero = self.progress;
+              showText(self.progress < 0.5);
+            },
+            onLeaveBack: () => showText(true),
           },
         });
-        tl.to(content, { opacity: 0, y: -60, duration: 0.4 }, 0.55);
       });
     }, pin);
 
@@ -161,36 +147,35 @@ export default function Hero() {
     <section ref={pinRef} className="relative h-screen overflow-hidden" id="hero">
       <div
         ref={contentRef}
-        className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 md:px-10"
+        className="relative mx-auto flex h-full max-w-[1600px] flex-col justify-center px-6 pb-24 pt-24 md:px-10 md:pb-28 md:pt-28"
       >
         {/* left column — fills the empty space beside the 3D core */}
         <div className="md:max-w-[56%]">
           <p
             data-hero-el
             data-hero-label
-            className="mono-font mb-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-cyan-glow opacity-0"
+            className="mono-font  mt-[100px] flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-cyan-glow opacity-0"
           >
             <span>01</span>
-            <span className="inline-block h-px w-10 bg-cyan-glow/60" />
+            <span className="inline-block h-px w-10 bg-cyan-glow/60 " />
             Full Stack Developer
           </p>
 
           <p
             data-hero-el
             data-hero-meta
-            className="mono-font mb-4 text-sm uppercase tracking-[0.35em] text-silver opacity-0 md:text-base"
+            className="mono-font mt-5 text-xs uppercase tracking-[0.25em] text-silver opacity-0 md:text-sm"
           >
-            Hi, I&apos;m{" "}
-            <span className="font-semibold text-ice">Muhammad Hammad</span>
+            Hi, I&apos;m <span className="font-semibold text-ice text[30px]">Muhammad Hammad</span>
           </p>
 
-          <h1 data-hero-type className="display-font font-semibold leading-[0.95]">
+          <h1 data-hero-type className="display-font mt-4 font-semibold leading-[0.95] ">
             {LINES.map((line, i) => (
-              <span key={line} className="block overflow-hidden">
+              <span key={line} className="block overflow-hidden ">
                 <span
                   data-hero-el
                   data-hero-line
-                  className={`block text-[14vw] md:text-[6.8vw] ${
+                  className={`block text-[80px] ${
                     i === 1 ? "text-gradient" : "text-ice"
                   } opacity-0`}
                 >
@@ -203,45 +188,13 @@ export default function Hero() {
           <p
             data-hero-el
             data-hero-meta
-            className="mt-8 max-w-md text-sm leading-relaxed text-silver opacity-0 md:text-base"
+            className="mt-6 max-w-md text-sm leading-relaxed text-silver opacity-0 md:text-base"
           >
-            I design and engineer fast, scalable digital products — from
-            resilient backend systems to interactive 3D interfaces.
+         I design and engineer high-performance digital products — from scalable backend systems and seamless web applications to immersive 3D interfaces. I turn complex ideas into fast, reliable, and engaging digital experiences.
+
           </p>
 
-          {/* quick stats strip */}
-          <div
-            data-hero-el
-            data-hero-meta
-            className="mt-8 flex flex-wrap gap-x-10 gap-y-4 opacity-0"
-          >
-            {[
-              { v: "40+", l: "Projects shipped" },
-              { v: "4+", l: "Years building" },
-              { v: "30+", l: "Happy clients" },
-            ].map((s) => (
-              <div key={s.l}>
-                <p className="display-font text-2xl font-semibold text-ice md:text-3xl">
-                  {s.v}
-                </p>
-                <p className="mono-font mt-1 text-[10px] uppercase tracking-[0.25em] text-silver">
-                  {s.l}
-                </p>
-              </div>
-            ))}
-          </div>
 
-          <div
-            data-hero-el
-            data-hero-meta
-            className="mono-font mt-8 flex gap-8 text-[10px] uppercase tracking-[0.3em] text-silver opacity-0"
-          >
-            <span>Karachi · PK</span>
-            <span className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-              Available now
-            </span>
-          </div>
         </div>
 
         {/* mid-scroll keywords layer — fills the pinned journey */}
@@ -273,7 +226,7 @@ export default function Hero() {
           data-hero-cta
           type="button"
           onClick={() => scrollToTarget("#statement")}
-          className="group absolute bottom-10 left-6 flex items-center gap-3 mono-font text-[10px] uppercase tracking-[0.35em] text-silver opacity-0 transition-colors hover:text-cyan-glow md:left-10"
+          className="group absolute bottom-[30px] left-1/2 flex -translate-x-1/2 items-center gap-3 mono-font text-[10px] uppercase tracking-[0.35em] text-silver opacity-0 transition-colors hover:text-cyan-glow"
         >
           Scroll to explore
           <ArrowDown className="h-3.5 w-3.5 animate-bounce" />

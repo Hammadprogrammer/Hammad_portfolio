@@ -116,39 +116,37 @@ export default function Experience() {
               key={xp.year}
               data-xp
               className={`relative pl-12 md:w-1/2 md:pl-0 ${
-                i % 2 === 0
-                  ? "md:self-start md:pr-16 md:text-right"
-                  : "md:self-end md:pl-16"
+                i % 2 === 0 ? "md:self-start md:pr-16" : "md:self-end md:pl-16"
               }`}
             >
               <span
                 data-xp-dot
-                className={`absolute left-[13px] top-2 h-2.5 w-2.5 rounded-full bg-cyan-glow shadow-[0_0_14px_rgba(34,224,255,0.9)] md:left-auto ${
-                  i % 2 === 0 ? "md:-right-[5px]" : "md:-left-[5px]"
+                className={`absolute top-8 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-glow shadow-[0_0_14px_rgba(34,224,255,0.9)] left-[17px] ${
+                  i % 2 === 0
+                    ? "md:left-auto md:right-0 md:translate-x-1/2"
+                    : "md:left-0 md:-translate-x-1/2"
                 }`}
               />
-              <span className="mono-font text-[10px] uppercase tracking-[0.3em] text-cyan-glow">
-                {xp.year}
-              </span>
-              <h3 className="display-font mt-2 text-2xl font-semibold text-ice">
-                {xp.role}
-              </h3>
-              <p className="mono-font mt-1 text-xs text-violet-glow">{xp.company}</p>
-              <p className="mt-4 text-sm leading-relaxed text-silver">{xp.desc}</p>
-              <ul
-                className={`mt-4 flex flex-wrap gap-2 ${
-                  i % 2 === 0 ? "md:justify-end" : ""
-                }`}
-              >
-                {xp.tech.map((t) => (
-                  <li
-                    key={t}
-                    className="mono-font rounded-full border border-ice/20 px-3 py-1 text-[10px] text-silver"
-                  >
-                    {t}
-                  </li>
-                ))}
-              </ul>
+              <div className="glass rounded-2xl p-6 md:p-8">
+                <span className="mono-font text-[10px] uppercase tracking-[0.3em] text-cyan-glow">
+                  {xp.year}
+                </span>
+                <h3 className="display-font mt-2 text-2xl font-semibold text-ice">
+                  {xp.role}
+                </h3>
+                <p className="mono-font mt-1 text-xs text-violet-glow">{xp.company}</p>
+                <p className="mt-4 text-sm leading-relaxed text-silver">{xp.desc}</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {xp.tech.map((t) => (
+                    <li
+                      key={t}
+                      className="mono-font rounded-full border border-ice/20 px-3 py-1 text-[10px] text-silver"
+                    >
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </li>
           ))}
         </ol>

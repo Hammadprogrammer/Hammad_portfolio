@@ -53,18 +53,22 @@ export default function AboutHero() {
         </p>
         <h1 className="display-font font-semibold leading-[0.95]">
           <span className="block overflow-hidden">
-            <span data-ah-line className="block text-[14vw] text-ice md:text-[9vw]">
+            <span data-ah-line className="block text-[13vw] text-ice md:text-[80px]">
               BEHIND
             </span>
           </span>
           <span className="block overflow-hidden">
-            <span data-ah-line className="text-gradient block text-[14vw] md:text-[9vw]">
+            <span data-ah-line className="text-gradient block text-[13vw] md:text-[80px]">
               THE CODE.
             </span>
           </span>
         </h1>
-        <p data-ah-sub className="mt-10 max-w-md text-lg text-silver">
-          Engineer. Builder. Problem solver.
+        <p data-ah-sub className="mt-8 max-w-3xl text-lg leading-relaxed text-silver md:text-2xl">
+          Engineer. Builder. Problem solver. I&apos;m a full stack developer from
+          Karachi who loves turning complex ideas into fast, reliable and
+          engaging digital products — from scalable backend systems and seamless
+          web applications to immersive 3D interfaces. Every project is a chance
+          to learn something new and build something that lasts.
         </p>
       </div>
     </section>

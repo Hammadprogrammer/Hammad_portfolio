@@ -9,6 +9,7 @@ export type Project = {
   featured?: boolean;
   size: "large" | "small" | "wide" | "tall";
   hue: string; // accent gradient for the visual panel
+  cover?: string; // real screenshot used as card / hero image
   overview: string;
   problem: string;
   solution: string;
@@ -17,15 +18,158 @@ export type Project = {
   tech: string[];
   challenges: string[];
   results: string[];
-  gallery: { label: string; gradient: string }[];
+  gallery: { label: string; gradient: string; image?: string }[];
   demo?: string;
   github?: string;
 };
 
 export const projects: Project[] = [
   {
-    slug: "ecommerce-platform",
+    slug: "pearlepp",
     index: "01",
+    title: "PEPP — Pearl Engineers & Planners",
+    category: "Full Stack",
+    tagline: "Corporate platform for a UK engineering consultancy.",
+    description:
+      "Live production website for Pearl Engineers, Planners & Project Managers (UK) — services, expertise, portfolio, blog engine and an instant quote system.",
+    year: "2025",
+    featured: true,
+    size: "large",
+    hue: "from-cyan-500/50 via-sky-600/30 to-blue-900/20",
+    cover: "/projects/pearlepp-1.png",
+    overview:
+      "A complete corporate platform for a London-based structural engineering consultancy: multi-level service pages, a content-heavy blog engine for SEO, project portfolio, careers and an instant quote flow — all built for performance and search visibility.",
+    problem:
+      "The consultancy needed a professional web presence that could rank for dozens of local-service keywords, publish content at scale and convert visitors into quote requests.",
+    solution:
+      "A fast, SEO-first website with structured service/category pages, a scalable blog system with 100+ articles, video hero sections and prominent conversion points (instant quote, contact, app download).",
+    architecture: [
+      "Component-driven frontend with reusable service page templates",
+      "Content/blog engine powering 100+ SEO articles",
+      "Lead capture forms wired to email notifications",
+      "Optimized media delivery — background video and responsive images",
+    ],
+    features: [
+      "Multi-level navigation across services, categories and blogs",
+      "Instant quote request flow",
+      "Portfolio and sustainability showcases",
+      "Mobile app promotion and cross-linking",
+      "Fully responsive, SEO-optimized pages",
+    ],
+    tech: ["React", "Next.js", "Node.js", "Tailwind CSS", "SEO"],
+    challenges: [
+      "Keeping a content-heavy site fast — solved with image optimization, lazy loading and route-level code splitting.",
+      "Managing 100+ SEO landing pages consistently — solved with data-driven page templates.",
+    ],
+    results: [
+      "Live in production serving UK clients",
+      "100+ indexed SEO pages and articles",
+      "Quote requests converted directly from the site",
+    ],
+    gallery: [
+      { label: "Home & Hero", gradient: "from-cyan-400/40 to-blue-900/40", image: "/projects/pearlepp-1.png" },
+      { label: "Vision & Services", gradient: "from-sky-400/40 to-indigo-900/40", image: "/projects/pearlepp-2.png" },
+      { label: "Expertise", gradient: "from-teal-400/40 to-cyan-900/40", image: "/projects/pearlepp-3.png" },
+    ],
+    demo: "https://www.pearlepp.co.uk/",
+  },
+  {
+    slug: "hireclassbuddy",
+    index: "02",
+    title: "Hire Class Buddy",
+    category: "Full Stack",
+    tagline: "Academic support platform with lead generation at its core.",
+    description:
+      "Live service platform for online class and exam assistance — service pages, subject catalog, reviews and multi-channel lead capture.",
+    year: "2024",
+    featured: true,
+    size: "small",
+    hue: "from-amber-500/45 via-orange-600/25 to-red-900/20",
+    cover: "/projects/hireclassbuddy-1.png",
+    overview:
+      "A conversion-focused platform for an academic assistance service: 20+ service and subject pages, trust-building sections (reviews, FAQs, guarantees) and lead forms connected to live chat and WhatsApp.",
+    problem:
+      "The business needed to turn organic traffic into signed-up students while presenting a large catalog of services and subjects clearly.",
+    solution:
+      "A structured marketing site with dedicated pages per service and subject, sticky lead forms, clear 3-step onboarding and 24/7 contact channels — designed to maximize inquiries.",
+    architecture: [
+      "Reusable page templates for services and subjects",
+      "Lead capture forms with validation and notifications",
+      "Live chat and WhatsApp integration",
+      "SEO-structured content with FAQ schema",
+    ],
+    features: [
+      "20+ service and subject landing pages",
+      "Instant signup and quote forms",
+      "Client reviews and FAQ sections",
+      "Exam-portal compatibility showcase",
+      "24/7 chat support entry points",
+    ],
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+    challenges: [
+      "Presenting a large service catalog without overwhelming users — solved with grouped navigation and per-page CTAs.",
+    ],
+    results: [
+      "Live in production with active student signups",
+      "Lead-form conversions from every major page",
+    ],
+    gallery: [
+      { label: "Landing & Signup", gradient: "from-amber-400/40 to-orange-900/40", image: "/projects/hireclassbuddy-1.png" },
+      { label: "Services", gradient: "from-orange-400/40 to-red-900/40", image: "/projects/hireclassbuddy-2.png" },
+      { label: "Process & Trust", gradient: "from-yellow-400/40 to-amber-900/40", image: "/projects/hireclassbuddy-3.png" },
+    ],
+    demo: "https://hireclassbuddy.com/",
+  },
+  {
+    slug: "allexamhelp",
+    index: "03",
+    title: "All Exam Help",
+    category: "Full Stack",
+    tagline: "Exam assistance platform covering 30+ services and subjects.",
+    description:
+      "Live platform for online exam support — services for GED, GRE, GMAT, PMP and more, with instant quotes, live call/chat and a subject catalog.",
+    year: "2024",
+    featured: true,
+    size: "wide",
+    hue: "from-blue-500/50 via-indigo-600/30 to-slate-900/20",
+    cover: "/projects/allexamhelp-1.png",
+    overview:
+      "A large-scale service platform for exam assistance: 16 service verticals and 15 subject pages, deal-of-the-day quote widget, live call and chat entry points, and stats-driven trust sections.",
+    problem:
+      "Dozens of exam types (GED, GRE, GMAT, PMP, HESI, TEAS…) each needed a dedicated, rankable page with its own conversion path — without duplicating work.",
+    solution:
+      "Template-driven landing pages generated from structured data, a persistent instant-quote widget, and integrated live call/chat so every visitor has an immediate contact path.",
+    architecture: [
+      "Data-driven landing page templates for 30+ pages",
+      "Instant quote widget shared across routes",
+      "Live call and chat integrations",
+      "Animated stats and testimonial sections",
+    ],
+    features: [
+      "16 exam services and 15 subject pages",
+      "Deal-of-the-day quote capture",
+      "Live call and live chat support",
+      "Success-rate stats and expert showcase",
+      "Fully responsive marketing pages",
+    ],
+    tech: ["Next.js", "TypeScript", "Node.js", "Tailwind CSS", "SEO"],
+    challenges: [
+      "Scaling to 30+ unique landing pages — solved with a single data-driven template system.",
+    ],
+    results: [
+      "Live in production with 24/7 inquiries",
+      "30+ SEO landing pages from one template system",
+    ],
+    gallery: [
+      { label: "Hero & Quote", gradient: "from-blue-400/40 to-indigo-900/40", image: "/projects/allexamhelp-1.png" },
+      { label: "Services Grid", gradient: "from-indigo-400/40 to-slate-900/40", image: "/projects/allexamhelp-2.png" },
+      { label: "Trust & Stats", gradient: "from-sky-400/40 to-blue-900/40", image: "/projects/allexamhelp-3.png" },
+    ],
+    demo: "https://allexamhelp.com/",
+  },
+  {
+    slug: "ecommerce-platform",
+    index: "04",
     title: "E-Commerce Platform",
     category: "Full Stack",
     tagline: "A production-grade storefront with real-time inventory.",
@@ -76,7 +220,7 @@ export const projects: Project[] = [
   },
   {
     slug: "saas-dashboard",
-    index: "02",
+    index: "05",
     title: "SaaS Dashboard",
     category: "Frontend",
     tagline: "A data-dense analytics workspace that stays fast.",
@@ -124,7 +268,7 @@ export const projects: Project[] = [
   },
   {
     slug: "backend-system",
-    index: "03",
+    index: "06",
     title: "Backend System",
     category: "Backend",
     tagline: "A resilient API platform processing millions of events.",
@@ -172,7 +316,7 @@ export const projects: Project[] = [
   },
   {
     slug: "interactive-experience",
-    index: "04",
+    index: "07",
     title: "Interactive Experience",
     category: "3D / Creative",
     tagline: "A WebGL story told through scroll.",
@@ -219,7 +363,7 @@ export const projects: Project[] = [
   },
   {
     slug: "employee-management",
-    index: "05",
+    index: "08",
     title: "Employee Management",
     category: "Full Stack",
     tagline: "HR records without the friction.",
@@ -255,7 +399,7 @@ export const projects: Project[] = [
   },
   {
     slug: "expense-tracker",
-    index: "06",
+    index: "09",
     title: "Expense Tracker",
     category: "Frontend",
     tagline: "Money, visualized honestly.",
@@ -281,7 +425,7 @@ export const projects: Project[] = [
   },
   {
     slug: "weather-app",
-    index: "07",
+    index: "10",
     title: "Weather App",
     category: "Frontend",
     tagline: "Five-day forecasts, zero clutter.",

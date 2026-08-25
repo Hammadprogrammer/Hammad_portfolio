@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { prefersReducedMotion, isTouchDevice } from "@/lib/scroll-state";
@@ -122,20 +123,33 @@ export default function ProjectGrid() {
               className={`glass relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br ${p.hue} p-8 transition-shadow duration-500 hover:shadow-[0_20px_80px_rgba(34,224,255,0.10)] md:p-10`}
               style={{ transformStyle: "preserve-3d" }}
             >
+              {p.cover && (
+                <>
+                  <Image
+                    src={p.cover}
+                    alt={`${p.title} screenshot`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    className="absolute inset-0 object-cover object-top opacity-40 transition-all duration-700 group-hover:scale-105 group-hover:opacity-55"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-void/95 via-void/55 to-void/25" />
+                </>
+              )}
+
               <div
                 data-glow
                 aria-hidden="true"
                 className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-glow/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
 
-              <div className="flex items-start justify-between">
+              <div className="relative flex items-start justify-between">
                 <span className="mono-font text-xs text-cyan-glow">{p.index}</span>
                 <span className="mono-font rounded-full border border-ice/20 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-silver">
                   {p.category}
                 </span>
               </div>
 
-              <div className="mt-auto pt-16">
+              <div className="relative mt-auto pt-16">
                 <h3 className="display-font text-2xl font-semibold text-ice transition-transform duration-500 group-hover:-translate-y-1 md:text-4xl">
                   {p.title}
                 </h3>

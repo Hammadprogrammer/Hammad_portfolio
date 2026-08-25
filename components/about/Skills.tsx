@@ -9,39 +9,90 @@ type Node = {
   label: string;
   x: number; // % of container
   y: number;
-  group: "frontend" | "backend" | "database" | "core";
+  group: "frontend" | "backend" | "database" | "deployment" | "design" | "core";
   desc: string;
 };
 
 const NODES: Node[] = [
-  { id: "frontend", label: "Frontend", x: 22, y: 18, group: "core", desc: "Interfaces built for speed and feel." },
-  { id: "react", label: "React", x: 10, y: 42, group: "frontend", desc: "Component architecture, hooks, performance tuning." },
-  { id: "next", label: "Next.js", x: 26, y: 58, group: "frontend", desc: "App Router, RSC, ISR — production Next.js." },
-  { id: "ts", label: "TypeScript", x: 42, y: 34, group: "frontend", desc: "Strict typing across the whole stack." },
-  { id: "backend", label: "Backend", x: 66, y: 14, group: "core", desc: "Systems that stay up and scale out." },
-  { id: "dotnet", label: ".NET", x: 82, y: 32, group: "backend", desc: "ASP.NET Core APIs, EF Core, clean architecture." },
-  { id: "node", label: "Node.js", x: 60, y: 40, group: "backend", desc: "BFFs, realtime services and tooling." },
-  { id: "apis", label: "APIs", x: 76, y: 56, group: "backend", desc: "REST design, auth, rate limiting, versioning." },
-  { id: "database", label: "Database", x: 44, y: 76, group: "core", desc: "Modeling data for correctness and speed." },
-  { id: "pg", label: "PostgreSQL", x: 28, y: 90, group: "database", desc: "Indexes, query plans, migrations." },
-  { id: "mongo", label: "MongoDB", x: 62, y: 88, group: "database", desc: "Document modeling and aggregation pipelines." },
+  /* --- frontend --- */
+  { id: "frontend", label: "Frontend", x: 18, y: 8, group: "core", desc: "Interfaces built for speed and feel." },
+  { id: "html", label: "HTML5", x: 6, y: 20, group: "frontend", desc: "Semantic, accessible markup." },
+  { id: "css", label: "CSS3", x: 16, y: 32, group: "frontend", desc: "Modern layouts, animations and responsive design." },
+  { id: "js", label: "JavaScript", x: 30, y: 20, group: "frontend", desc: "Deep language fundamentals — the base of everything." },
+  { id: "ts", label: "TypeScript", x: 43, y: 10, group: "frontend", desc: "Strict typing across the whole stack." },
+  { id: "react", label: "React", x: 8, y: 46, group: "frontend", desc: "Component architecture, hooks, performance tuning." },
+  { id: "next", label: "Next.js", x: 22, y: 46, group: "frontend", desc: "App Router, RSC, ISR — production Next.js." },
+  { id: "tailwind", label: "Tailwind CSS", x: 36, y: 32, group: "frontend", desc: "Utility-first styling, design systems at speed." },
+  { id: "shadcn", label: "shadcn/ui", x: 12, y: 58, group: "frontend", desc: "Composable, accessible UI primitives." },
+  { id: "mui", label: "MUI", x: 28, y: 60, group: "frontend", desc: "Material UI component systems and theming." },
+  /* --- backend --- */
+  { id: "backend", label: "Backend", x: 64, y: 8, group: "core", desc: "Systems that stay up and scale out." },
+  { id: "csharp", label: "C#", x: 54, y: 20, group: "backend", desc: "Primary backend language — typed, fast, battle-tested." },
+  { id: "dotnet", label: ".NET", x: 66, y: 26, group: "backend", desc: "ASP.NET Core APIs, EF Core, clean architecture." },
+  { id: "node", label: "Node.js", x: 78, y: 14, group: "backend", desc: "BFFs, realtime services and tooling." },
+  { id: "express", label: "Express.js", x: 90, y: 24, group: "backend", desc: "Minimal, fast REST APIs and middleware." },
+  { id: "python", label: "Python", x: 52, y: 34, group: "backend", desc: "Scripting, automation and API development." },
+  { id: "fastapi", label: "FastAPI", x: 64, y: 42, group: "backend", desc: "High-performance async Python APIs." },
+  { id: "apis", label: "REST APIs", x: 78, y: 38, group: "backend", desc: "REST design, auth, rate limiting, versioning." },
+  /* --- database --- */
+  { id: "database", label: "Database", x: 46, y: 70, group: "core", desc: "Modeling data for correctness and speed." },
+  { id: "sql", label: "SQL", x: 36, y: 82, group: "database", desc: "Queries, joins, indexes and optimization." },
+  { id: "pg", label: "PostgreSQL", x: 48, y: 92, group: "database", desc: "Indexes, query plans, migrations." },
+  { id: "mongo", label: "MongoDB", x: 60, y: 84, group: "database", desc: "Document modeling and aggregation pipelines." },
+  { id: "firebase", label: "Firebase", x: 68, y: 66, group: "database", desc: "Realtime data, auth and cloud functions." },
+  { id: "supabase", label: "Supabase", x: 33, y: 64, group: "database", desc: "Postgres-powered backend as a service." },
+  /* --- deployment --- */
+  { id: "deployment", label: "Deployment", x: 86, y: 52, group: "core", desc: "From commit to production, smoothly." },
+  { id: "vercel", label: "Vercel", x: 92, y: 66, group: "deployment", desc: "Edge deploys, previews and analytics." },
+  { id: "railway", label: "Railway", x: 82, y: 78, group: "deployment", desc: "Backend and database hosting made simple." },
+  { id: "git", label: "Git", x: 94, y: 40, group: "deployment", desc: "Branching strategies and clean history." },
+  { id: "github", label: "GitHub", x: 70, y: 92, group: "deployment", desc: "PRs, reviews, actions and collaboration." },
+  /* --- design --- */
+  { id: "design", label: "Design", x: 8, y: 76, group: "core", desc: "Where engineering meets aesthetics." },
+  { id: "figma", label: "Figma", x: 16, y: 90, group: "design", desc: "UI design, prototyping and dev handoff." },
 ];
 
 const LINKS: [string, string][] = [
+  ["frontend", "html"],
+  ["frontend", "css"],
+  ["frontend", "js"],
+  ["frontend", "ts"],
   ["frontend", "react"],
   ["frontend", "next"],
-  ["frontend", "ts"],
+  ["frontend", "tailwind"],
+  ["js", "ts"],
   ["react", "next"],
-  ["ts", "next"],
+  ["react", "shadcn"],
+  ["next", "mui"],
+  ["css", "tailwind"],
+  ["backend", "csharp"],
   ["backend", "dotnet"],
   ["backend", "node"],
+  ["backend", "python"],
   ["backend", "apis"],
+  ["csharp", "dotnet"],
+  ["node", "express"],
+  ["python", "fastapi"],
   ["dotnet", "apis"],
-  ["node", "apis"],
+  ["express", "apis"],
+  ["fastapi", "apis"],
+  ["ts", "backend"],
+  ["database", "sql"],
   ["database", "pg"],
   ["database", "mongo"],
-  ["ts", "backend"],
+  ["database", "firebase"],
+  ["database", "supabase"],
+  ["sql", "pg"],
   ["apis", "database"],
+  ["deployment", "vercel"],
+  ["deployment", "railway"],
+  ["deployment", "git"],
+  ["deployment", "github"],
+  ["git", "github"],
+  ["firebase", "deployment"],
+  ["design", "figma"],
+  ["design", "shadcn"],
+  ["next", "database"],
 ];
 
 const GROUP_COLOR: Record<Node["group"], string> = {
@@ -49,6 +100,8 @@ const GROUP_COLOR: Record<Node["group"], string> = {
   frontend: "#22e0ff",
   backend: "#8b7bff",
   database: "#2dd4bf",
+  deployment: "#fbbf24",
+  design: "#f0abfc",
 };
 
 export default function Skills() {
@@ -119,7 +172,7 @@ export default function Skills() {
       {/* Desktop constellation */}
       <div
         data-constellation
-        className="relative hidden aspect-[16/9] w-full md:block"
+        className="relative hidden aspect-[16/10] w-full md:block"
         role="img"
         aria-label="Skill constellation: frontend, backend and database technologies connected as a network"
       >
@@ -172,12 +225,19 @@ export default function Skills() {
           );
         })}
 
-        {/* hover description */}
+        {/* hover description — appears right beside the hovered node */}
         <div
           aria-live="polite"
-          className={`glass absolute bottom-4 left-4 max-w-xs rounded-xl px-5 py-4 transition-opacity duration-300 ${
+          className={`glass pointer-events-none absolute z-10 w-64 rounded-xl px-5 py-4 transition-opacity duration-300 ${
             hoveredNode ? "opacity-100" : "opacity-0"
           }`}
+          style={{
+            left: `${hoveredNode?.x ?? 50}%`,
+            top: `${hoveredNode?.y ?? 50}%`,
+            transform: `translate(${(hoveredNode?.x ?? 50) > 62 ? "calc(-100% - 24px)" : "24px"}, ${
+              (hoveredNode?.y ?? 50) > 65 ? "calc(-100% - 12px)" : "12px"
+            })`,
+          }}
         >
           <p className="display-font text-sm font-semibold text-ice">
             {hoveredNode?.label}
@@ -190,7 +250,7 @@ export default function Skills() {
 
       {/* Mobile categorized lists */}
       <div className="grid gap-8 md:hidden">
-        {(["frontend", "backend", "database"] as const).map((group) => (
+        {(["frontend", "backend", "database", "deployment", "design"] as const).map((group) => (
           <div key={group} className="glass rounded-2xl p-6">
             <h3
               className="mono-font text-[10px] uppercase tracking-[0.35em]"

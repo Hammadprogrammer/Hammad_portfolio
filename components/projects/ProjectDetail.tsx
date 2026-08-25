@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { gsap, useGsapLayoutEffect } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/scroll-state";
@@ -151,14 +152,25 @@ export default function ProjectDetail({ project }: { project: Project }) {
           <div className="mt-14 overflow-hidden rounded-3xl">
             <div
               data-pd-visual
-              className={`glass relative flex aspect-[16/8] items-center justify-center rounded-3xl bg-gradient-to-br ${project.hue}`}
+              className={`glass relative flex aspect-[16/8] items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br ${project.hue}`}
               role="img"
               aria-label={`${project.title} cover visual`}
             >
-              <span className="display-font text-[18vw] font-bold text-ice/5 md:text-[10vw]">
-                {project.index}
-              </span>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(34,224,255,0.12),transparent_55%)]" />
+              {project.cover ? (
+                <Image
+                  src={project.cover}
+                  alt={`${project.title} website screenshot`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 90vw"
+                  className="object-cover object-top"
+                  priority
+                />
+              ) : (
+                <span className="display-font text-[18vw] font-bold text-ice/5 md:text-[10vw]">
+                  {project.index}
+                </span>
+              )}
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(34,224,255,0.12),transparent_55%)]" />
             </div>
           </div>
         </div>
@@ -275,7 +287,16 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 key={g.label}
                 className={`glass relative flex aspect-[16/10] w-[80vw] shrink-0 items-end overflow-hidden rounded-3xl bg-gradient-to-br p-6 md:w-[46vw] ${g.gradient}`}
               >
-                <figcaption className="mono-font rounded-full bg-void/50 px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-ice backdrop-blur">
+                {g.image && (
+                  <Image
+                    src={g.image}
+                    alt={`${project.title} — ${g.label}`}
+                    fill
+                    sizes="(max-width: 768px) 80vw, 46vw"
+                    className="object-cover object-top"
+                  />
+                )}
+                <figcaption className="relative mono-font rounded-full bg-void/60 px-4 py-2 text-[10px] uppercase tracking-[0.25em] text-ice backdrop-blur">
                   {g.label}
                 </figcaption>
               </figure>

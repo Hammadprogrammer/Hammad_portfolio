@@ -70,7 +70,7 @@ export default function Footer() {
             </h3>
             <div className="flex gap-3">
               <a
-                href="https://github.com/"
+                href="https://github.com/Hammadprogrammer"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -79,7 +79,7 @@ export default function Footer() {
                 <GithubIcon className="h-4 w-4" />
               </a>
               <a
-                href="https://linkedin.com/"
+                href="https://www.linkedin.com/in/hammad-zahid-543a652a6/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -88,7 +88,7 @@ export default function Footer() {
                 <LinkedinIcon className="h-4 w-4" />
               </a>
               <a
-                href="https://wa.me/923221870539"
+                href="https://wa.me/923118270539"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -97,7 +97,7 @@ export default function Footer() {
                 <MessageCircle className="h-4 w-4" />
               </a>
             </div>
-            <p className="mono-font mt-6 text-xs text-silver">+92 322 1870539</p>
+            <p className="mono-font mt-6 text-xs text-silver">+92 311 8270539</p>
             <p className="mono-font mt-1 text-xs text-silver">Karachi, Pakistan</p>
           </div>
 

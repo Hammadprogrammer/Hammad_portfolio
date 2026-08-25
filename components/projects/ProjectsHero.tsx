@@ -44,18 +44,20 @@ export default function ProjectsHero() {
         </p>
         <h1 className="display-font font-semibold leading-[0.95]">
           <span className="block overflow-hidden">
-            <span data-ph-line className="block text-[13vw] text-ice md:text-[8.5vw]">
+            <span data-ph-line className="block text-[13vw] text-ice md:text-[80px]">
               SELECTED
             </span>
           </span>
           <span className="block overflow-hidden">
-            <span data-ph-line className="text-gradient block text-[13vw] md:text-[8.5vw]">
+            <span data-ph-line className="text-gradient block text-[13vw] md:text-[80px]">
               WORK
             </span>
           </span>
         </h1>
-        <p data-ph-sub className="mt-8 max-w-md text-lg text-silver">
-          Systems, interfaces and digital experiences.
+        <p data-ph-sub className="mt-6 max-w-lg text-sm leading-relaxed text-silver md:text-base">
+          Real products, live in production — from corporate platforms and
+          service businesses to full stack systems and interactive experiences.
+          Every project shipped end-to-end: design, code and deployment.
         </p>
       </div>
     </section>

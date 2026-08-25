@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { gsap, useGsapLayoutEffect } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/scroll-state";
 
@@ -43,9 +43,9 @@ const STAGES = [
   },
   {
     id: "05",
-    label: "NOW",
+    label: "NOW & BEYOND",
     story:
-      "Building products where engineering meets experience — full stack systems with interfaces that feel alive. Always learning, currently exploring WebGL and distributed systems.",
+      "Today I build complete products where solid engineering meets memorable experience — resilient full stack systems with interfaces that feel alive. The learning never stops: currently going deeper into WebGL, real-time 3D and distributed system design.",
     tech: ["Three.js", "GSAP", "TypeScript", "System Design"],
     accent: "text-cyan-glow",
     bar: "bg-gradient-to-r from-cyan-glow to-violet-glow",
@@ -152,7 +152,7 @@ export default function Story() {
           >
             <div data-stage-inner className="max-w-xl">
               <div className="flex items-baseline gap-6">
-                <span className={`display-font text-7xl font-bold opacity-20 md:text-9xl ${s.accent}`}>
+                <span className={`display-font text-7xl font-bold opacity-45 md:text-9xl ${s.accent}`}>
                   {s.id}
                 </span>
                 <div>
