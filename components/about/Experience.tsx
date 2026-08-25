@@ -6,10 +6,17 @@ import { prefersReducedMotion } from "@/lib/scroll-state";
 
 const EXPERIENCES = [
   {
+    company: "7CTECH — Karachi, Pakistan",
+    role: "Full Stack Developer",
+    year: "2025 — Present",
+    desc: "Working at 7CTECH, a software house delivering web, e-commerce and .NET solutions for international clients. Building production applications end-to-end — React/Next.js frontends, ASP.NET Core and Node.js backends, and client platforms like PEPP (pearlepp.co.uk).",
+    tech: ["React", "Next.js", "ASP.NET Core", "Node.js", "SQL", "WordPress"],
+  },
+  {
     company: "Freelance / Contract",
     role: "Full Stack Developer",
-    year: "2024 — Present",
-    desc: "Building web applications end-to-end for clients: React/Next.js frontends with .NET and Node.js backends. Owning everything from database design to smooth production deploys.",
+    year: "2024 — 2025",
+    desc: "Built web applications end-to-end for clients: React/Next.js frontends with .NET and Node.js backends. Owned everything from database design to smooth production deploys.",
     tech: ["Next.js", "React", "ASP.NET Core", "PostgreSQL", "Docker"],
   },
   {
