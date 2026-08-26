@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/scroll-state";
+import { preloaderState } from "@/lib/preloader-state";
 
 export default function ProjectsHero() {
   const ref = useRef<HTMLElement>(null);
@@ -11,19 +12,24 @@ export default function ProjectsHero() {
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({ delay: 0.3 })
-        .fromTo(
-          "[data-ph-line]",
-          { yPercent: 110 },
-          { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out" }
-        )
-        .fromTo(
-          "[data-ph-sub]",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          "-=0.5"
-        );
+      // entrance only plays on client-side navigations — on a full load the
+      // preloader overlay covers it, and skipping keeps the heading painted
+      // from the server HTML for LCP
+      if (preloaderState.done) {
+        gsap
+          .timeline({ delay: 0.3 })
+          .fromTo(
+            "[data-ph-line]",
+            { yPercent: 110 },
+            { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out" }
+          )
+          .fromTo(
+            "[data-ph-sub]",
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8 },
+            "-=0.5"
+          );
+      }
 
       gsap.to("[data-ph-wrap]", {
         y: -60,

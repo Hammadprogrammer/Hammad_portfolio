@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { Mail, MapPin, ArrowRight, Phone } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/scroll-state";
+import { preloaderState } from "@/lib/preloader-state";
 import { useReveal } from "@/hooks/useReveal";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
@@ -18,19 +19,24 @@ export default function ContactView() {
     const el = heroRef.current;
     if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({ delay: 0.3 })
-        .fromTo(
-          "[data-ch-line]",
-          { yPercent: 110 },
-          { yPercent: 0, duration: 1.1, stagger: 0.13, ease: "power4.out" }
-        )
-        .fromTo(
-          "[data-ch-sub]",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          "-=0.5"
-        );
+      // entrance only plays on client-side navigations — on a full load the
+      // preloader overlay covers it, and skipping keeps the heading painted
+      // from the server HTML for LCP
+      if (preloaderState.done) {
+        gsap
+          .timeline({ delay: 0.3 })
+          .fromTo(
+            "[data-ch-line]",
+            { yPercent: 110 },
+            { yPercent: 0, duration: 1.1, stagger: 0.13, ease: "power4.out" }
+          )
+          .fromTo(
+            "[data-ch-sub]",
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8 },
+            "-=0.5"
+          );
+      }
 
       gsap.to("[data-ch-wrap]", {
         y: -70,

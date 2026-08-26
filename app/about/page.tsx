@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import AboutHero from "@/components/about/AboutHero";
-import Story from "@/components/about/Story";
-import Experience from "@/components/about/Experience";
-import Skills from "@/components/about/Skills";
-import Education from "@/components/about/Education";
+import DeferredAbout from "@/components/about/DeferredAbout";
 
 const description =
   "The story, experience and skills behind the code — Full Stack Developer at 7CTECH, Karachi. React, Next.js, ASP.NET Core, Node.js and interactive 3D.";
@@ -24,10 +21,7 @@ export default function AboutPage() {
   return (
     <>
       <AboutHero />
-      <Story />
-      <Experience />
-      <Skills />
-      <Education />
+      <DeferredAbout />
     </>
   );
 }

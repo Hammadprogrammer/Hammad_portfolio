@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Fallback from "./Fallback";
 import { prefersReducedMotion, isTouchDevice } from "@/lib/scroll-state";
+import { onFirstInteraction } from "@/lib/first-interaction";
 
 const Scene = dynamic(() => import("./Scene"), {
   ssr: false,
@@ -51,15 +52,11 @@ export default function SceneRoot() {
   useEffect(() => {
     if (!shouldRenderWebGL()) return;
 
-    // wait until the browser is idle so the 3D bundle never competes with LCP
-    const idle =
-      window.requestIdleCallback?.(() => setWebgl(true), { timeout: 2500 }) ??
-      window.setTimeout(() => setWebgl(true), 1200);
-
-    return () => {
-      if (window.cancelIdleCallback) window.cancelIdleCallback(idle as number);
-      else window.clearTimeout(idle as number);
-    };
+    // Load the ~870KB WebGL bundle only on the visitor's first interaction
+    // (mouse move / scroll / key press). Real users interact within
+    // milliseconds, while the bundle stays entirely out of the initial
+    // load — it never competes with LCP or blocks the main thread.
+    return onFirstInteraction(() => setWebgl(true));
   }, []);
 
   return webgl ? <Scene /> : <Fallback />;

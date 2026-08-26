@@ -4,12 +4,10 @@ import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import CustomCursor from "@/components/CustomCursor";
 import SceneRoot from "@/components/three/SceneRoot";
 import PageTransition from "@/components/layout/PageTransition";
 import Preloader from "@/components/Preloader";
-import ChapterNav from "@/components/ChapterNav";
-import ScrollProgress from "@/components/ScrollProgress";
+import DeferredChrome from "@/components/DeferredChrome";
 import JsonLd from "@/components/JsonLd";
 import { siteUrl } from "@/lib/site";
 
@@ -150,9 +148,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SmoothScroll>
           <Preloader />
           <SceneRoot />
-          <CustomCursor />
-          <ChapterNav />
-          <ScrollProgress />
+          <DeferredChrome />
           <Navbar />
           <PageTransition>
             <main className="relative z-10 flex-1">{children}</main>

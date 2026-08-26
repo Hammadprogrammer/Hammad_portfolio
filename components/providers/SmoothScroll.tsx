@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { scrollState, prefersReducedMotion } from "@/lib/scroll-state";
 import { setLenis } from "@/lib/lenis-store";
+import { onFirstInteraction } from "@/lib/first-interaction";
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -13,29 +14,39 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       return;
     }
 
-    const lenis = new Lenis({
-      duration: 1.25,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      touchMultiplier: 1.4,
-    });
-    setLenis(lenis);
+    // Lenis only matters once the visitor scrolls, so it initialises on the
+    // first interaction — keeping its setup out of the initial-load work.
+    let cleanup: (() => void) | undefined;
+    const cancel = onFirstInteraction(() => {
+      const lenis = new Lenis({
+        duration: 1.25,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        touchMultiplier: 1.4,
+      });
+      setLenis(lenis);
 
-    lenis.on("scroll", (e: Lenis) => {
-      ScrollTrigger.update();
-      const max = e.limit || 1;
-      scrollState.page = e.scroll / max;
-      scrollState.velocity = e.velocity;
-    });
+      lenis.on("scroll", (e: Lenis) => {
+        ScrollTrigger.update();
+        const max = e.limit || 1;
+        scrollState.page = e.scroll / max;
+        scrollState.velocity = e.velocity;
+      });
 
-    const raf = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+      const raf = (time: number) => lenis.raf(time * 1000);
+      gsap.ticker.add(raf);
+      gsap.ticker.lagSmoothing(0);
+
+      cleanup = () => {
+        gsap.ticker.remove(raf);
+        lenis.destroy();
+        setLenis(null);
+      };
+    });
 
     return () => {
-      gsap.ticker.remove(raf);
-      lenis.destroy();
-      setLenis(null);
+      cancel();
+      cleanup?.();
     };
   }, []);
 

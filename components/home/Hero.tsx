@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
-import { gsap, useGsapLayoutEffect } from "@/lib/gsap";
+import { gsap, ScrollTrigger, useGsapLayoutEffect } from "@/lib/gsap";
 import { scrollState, prefersReducedMotion } from "@/lib/scroll-state";
 import { scrollToTarget } from "@/lib/lenis-store";
 import { whenPreloaderDone } from "@/lib/preloader-state";
@@ -49,10 +49,49 @@ export default function Hero() {
         });
       };
 
-      gsap.set(textEls, { autoAlpha: 0, x: -70 });
+      // LCP: the heading is opaque in the server HTML (hidden behind the
+      // preloader overlay), so only the transform is pre-set here. The
+      // entrance below slides it in with the exact same timing/ease/stagger.
+      gsap.set(textEls, { x: -70 });
 
       /* entrance after preloader */
       cancelWait = whenPreloaderDone(() => showText(true));
+
+      /* ---------- keywords in/out — deterministic, like showText ----------
+         Driven from scroll progress instead of scrubbed fromTo tweens, so a
+         mid-scroll ScrollTrigger.refresh() (fonts loading, deferred sections
+         mounting) can never leave them stuck hidden. */
+      const KW = "[data-hero-kw]";
+      const KW_LABEL = "[data-hero-kw-label]";
+      gsap.set(KW, { yPercent: 100, opacity: 0, filter: "blur(8px)" });
+      let kwState: "before" | "in" | "after" = "before";
+      const showKeywords = (state: "before" | "in" | "after") => {
+        if (kwState === state) return;
+        kwState = state;
+        if (state === "in") {
+          gsap.to(KW, {
+            yPercent: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            stagger: 0.07,
+            duration: 0.45,
+            ease: "power3.out",
+            overwrite: true,
+          });
+          gsap.to(KW_LABEL, { opacity: 1, duration: 0.3, overwrite: true });
+        } else {
+          gsap.to(KW, {
+            yPercent: state === "before" ? 100 : -80,
+            opacity: 0,
+            filter: "blur(8px)",
+            stagger: 0.05,
+            duration: 0.35,
+            ease: "power2.in",
+            overwrite: true,
+          });
+          gsap.to(KW_LABEL, { opacity: 0, duration: 0.25, overwrite: true });
+        }
+      };
 
       /* ---------- pinned scroll choreography ---------- */
       const mm = gsap.matchMedia();
@@ -72,73 +111,49 @@ export default function Hero() {
               ease: "power2.inOut",
             },
             onUpdate: (self) => {
-              scrollState.hero = self.progress;
+              const p = self.progress;
+              scrollState.hero = p;
               // text slides out past 18% and slides back in from the left
               // every time the user returns to the top of the hero
-              showText(self.progress < 0.18);
+              showText(p < 0.18);
+              // phase 2/3: keywords enter after the text leaves, exit near the end
+              showKeywords(p < 0.3 ? "before" : p <= 0.78 ? "in" : "after");
             },
-            onLeave: () => (scrollState.hero = 1),
+            onLeave: () => {
+              scrollState.hero = 1;
+              showKeywords("after");
+            },
             onLeaveBack: () => {
               scrollState.hero = 0;
               showText(true);
+              showKeywords("before");
             },
           },
         });
 
-        // phase 2: keywords take over the empty space (core travels across)
-        tl.fromTo(
-            "[data-hero-kw]",
-            { yPercent: 100, opacity: 0, filter: "blur(8px)" },
-            {
-              yPercent: 0,
-              opacity: 1,
-              filter: "blur(0px)",
-              stagger: 0.07,
-              duration: 0.2,
-            },
-            0.32
-          )
-          .to("[data-hero-kw-label]", { opacity: 1, duration: 0.15 }, 0.34)
-          // gentle drift while holding
-          .to(keywordsRef.current, { yPercent: -6, duration: 0.35, ease: "none" }, 0.5)
-          // phase 3: keywords exit, section hands off
-          .to(
-            "[data-hero-kw]",
-            {
-              yPercent: -80,
-              opacity: 0,
-              filter: "blur(8px)",
-              stagger: 0.05,
-              duration: 0.2,
-            },
-            0.78
-          )
-          .to("[data-hero-kw-label]", { opacity: 0, duration: 0.12 }, 0.8)
+        // gentle drift while the keywords hold, then hand-off scale
+        tl.to(keywordsRef.current, { yPercent: -6, duration: 0.35, ease: "none" }, 0.5)
           .to(content, { scale: 0.96, duration: 0.2 }, 0.82);
       });
 
       mm.add("(max-width: 767px)", () => {
         // lighter mobile pin: text out, then keywords take the stage
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: pin,
-            start: "top top",
-            end: "+=120%",
-            pin: true,
-            scrub: 1,
-            onUpdate: (self) => {
-              scrollState.hero = self.progress;
-              showText(self.progress < 0.4);
-            },
-            onLeaveBack: () => showText(true),
+        ScrollTrigger.create({
+          trigger: pin,
+          start: "top top",
+          end: "+=120%",
+          pin: true,
+          onUpdate: (self) => {
+            const p = self.progress;
+            scrollState.hero = p;
+            showText(p < 0.4);
+            showKeywords(p >= 0.45 ? "in" : "before");
+          },
+          onLeaveBack: () => {
+            showText(true);
+            showKeywords("before");
           },
         });
-        tl.fromTo(
-          "[data-hero-kw]",
-          { yPercent: 100, opacity: 0 },
-          { yPercent: 0, opacity: 1, stagger: 0.06, duration: 0.25, immediateRender: false },
-          0.5
-        ).to("[data-hero-kw-label]", { opacity: 1, duration: 0.1 }, 0.52);
       });
     }, pin);
 
@@ -162,7 +177,7 @@ export default function Hero() {
           <p
             data-hero-el
             data-hero-label
-            className="mono-font mt-0 md:mt-[100px] flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-cyan-glow opacity-0"
+            className="mono-font mt-0 md:mt-[100px] flex items-center gap-3 text-[11px] uppercase tracking-[0.4em] text-cyan-glow"
           >
             <span>01</span>
             <span className="inline-block h-px w-10 bg-cyan-glow/60 " />
@@ -172,7 +187,7 @@ export default function Hero() {
           <p
             data-hero-el
             data-hero-meta
-            className="mono-font mt-5 text-xs uppercase tracking-[0.25em] text-silver opacity-0 md:text-sm"
+            className="mono-font mt-5 text-xs uppercase tracking-[0.25em] text-silver md:text-sm"
           >
             Hi, I&apos;m{" "}
             <span className="font-semibold text-ice text-base md:text-[30px]">
@@ -188,7 +203,7 @@ export default function Hero() {
                   data-hero-line
                   className={`block text-[11vw] sm:text-[52px] md:text-[80px] ${
                     i === 1 ? "text-gradient" : "text-ice"
-                  } opacity-0`}
+                  }`}
                 >
                   {line}
                 </span>
@@ -199,7 +214,7 @@ export default function Hero() {
           <p
             data-hero-el
             data-hero-meta
-            className="mt-6 max-w-md text-sm leading-relaxed text-silver opacity-0 md:text-base"
+            className="mt-6 max-w-md text-sm leading-relaxed text-silver md:text-base"
           >
          I design and engineer high-performance digital products — from scalable backend systems and seamless web applications to immersive 3D interfaces. I turn complex ideas into fast, reliable, and engaging digital experiences.
 
@@ -237,7 +252,7 @@ export default function Hero() {
           data-hero-cta
           type="button"
           onClick={() => scrollToTarget("#statement")}
-          className="group absolute bottom-[30px] left-1/2 flex -translate-x-1/2 items-center gap-3 mono-font text-[10px] uppercase tracking-[0.35em] text-silver opacity-0 transition-colors hover:text-cyan-glow"
+          className="group absolute bottom-[30px] left-1/2 flex -translate-x-1/2 items-center gap-3 mono-font text-[10px] uppercase tracking-[0.35em] text-silver transition-colors hover:text-cyan-glow"
         >
           Scroll to explore
           <ArrowDown className="h-3.5 w-3.5 animate-bounce" />

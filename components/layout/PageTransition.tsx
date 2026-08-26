@@ -14,6 +14,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const wrapRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
+  const firstMountRef = useRef(true);
 
   useEffect(() => {
     // sync 3D theme with route
@@ -30,8 +31,30 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     window.scrollTo(0, 0);
     const rafId = requestAnimationFrame(() => ScrollTrigger.refresh());
 
+    // pins/scrub ranges are measured before the web fonts arrive; once they
+    // swap in, text metrics change and every trigger must be re-measured or
+    // pinned sections overlap / hide their content.
+    let fontsDone = false;
+    document.fonts?.ready.then(() => {
+      if (!fontsDone) ScrollTrigger.refresh();
+    });
+
+    // On the very first load the preloader overlay already covers the page,
+    // so the veil/fade would be invisible anyway — skipping it keeps the
+    // server-painted hero text visible for LCP and saves main-thread work.
+    if (firstMountRef.current) {
+      firstMountRef.current = false;
+      return () => {
+        fontsDone = true;
+        cancelAnimationFrame(rafId);
+      };
+    }
+
     if (prefersReducedMotion()) {
-      return () => cancelAnimationFrame(rafId);
+      return () => {
+        fontsDone = true;
+        cancelAnimationFrame(rafId);
+      };
     }
 
     const ctx = gsap.context(() => {
@@ -64,6 +87,7 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       );
     });
     return () => {
+      fontsDone = true;
       cancelAnimationFrame(rafId);
       ctx.revert();
     };

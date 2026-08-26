@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/scroll-state";
+import { preloaderState } from "@/lib/preloader-state";
 
 export default function AboutHero() {
   const ref = useRef<HTMLElement>(null);
@@ -12,19 +13,24 @@ export default function AboutHero() {
     if (!el || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      const load = gsap.timeline({ delay: 0.3 });
-      load
-        .fromTo(
-          "[data-ah-line]",
-          { yPercent: 110 },
-          { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out" }
-        )
-        .fromTo(
-          "[data-ah-sub]",
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          "-=0.5"
-        );
+      // On the first full load the preloader overlay covers this entrance
+      // entirely, so it only plays on client-side navigations — keeping the
+      // heading painted from the server HTML for LCP.
+      if (preloaderState.done) {
+        const load = gsap.timeline({ delay: 0.3 });
+        load
+          .fromTo(
+            "[data-ah-line]",
+            { yPercent: 110 },
+            { yPercent: 0, duration: 1.1, stagger: 0.12, ease: "power4.out" }
+          )
+          .fromTo(
+            "[data-ah-sub]",
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8 },
+            "-=0.5"
+          );
+      }
 
       // camera pull-back feel: heading scales down slightly, drifts up on scroll
       gsap.to("[data-ah-wrap]", {

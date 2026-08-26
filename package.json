@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "perf": "node tests/lighthouse.mjs",
     "test:watch": "vitest"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
     "jsdom": "^30.0.1",
+    "lighthouse": "^13.4.1",
     "puppeteer-core": "^25.8.0",
     "tailwindcss": "^4",
     "typescript": "^5",

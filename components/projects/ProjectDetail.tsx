@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, ExternalLink } from "lucide-react";
 import { gsap, useGsapLayoutEffect } from "@/lib/gsap";
 import { prefersReducedMotion } from "@/lib/scroll-state";
+import { preloaderState } from "@/lib/preloader-state";
 import { GithubIcon } from "@/components/icons";
 import { useReveal } from "@/hooks/useReveal";
 import type { Project } from "@/lib/projects";
@@ -21,31 +22,36 @@ export default function ProjectDetail({ project }: { project: Project }) {
     const el = heroRef.current;
     if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({ delay: 0.2 })
-        .fromTo(
-          "[data-pd-visual]",
-          { scale: 0.92, opacity: 0, clipPath: "inset(12% 8% 12% 8% round 24px)" },
-          {
-            scale: 1,
-            opacity: 1,
-            clipPath: "inset(0% 0% 0% 0% round 24px)",
-            duration: 1.3,
-            ease: "power4.out",
-          }
-        )
-        .fromTo(
-          "[data-pd-title]",
-          { yPercent: 110 },
-          { yPercent: 0, duration: 1, ease: "power4.out" },
-          "-=0.8"
-        )
-        .fromTo(
-          "[data-pd-meta]",
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, stagger: 0.08, duration: 0.7 },
-          "-=0.5"
-        );
+      // entrance only plays on client-side navigations — on a full load the
+      // preloader overlay covers it, and skipping keeps the title/visual
+      // painted from the server HTML for LCP
+      if (preloaderState.done) {
+        gsap
+          .timeline({ delay: 0.2 })
+          .fromTo(
+            "[data-pd-visual]",
+            { scale: 0.92, opacity: 0, clipPath: "inset(12% 8% 12% 8% round 24px)" },
+            {
+              scale: 1,
+              opacity: 1,
+              clipPath: "inset(0% 0% 0% 0% round 24px)",
+              duration: 1.3,
+              ease: "power4.out",
+            }
+          )
+          .fromTo(
+            "[data-pd-title]",
+            { yPercent: 110 },
+            { yPercent: 0, duration: 1, ease: "power4.out" },
+            "-=0.8"
+          )
+          .fromTo(
+            "[data-pd-meta]",
+            { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, stagger: 0.08, duration: 0.7 },
+            "-=0.5"
+          );
+      }
 
       gsap.to("[data-pd-visual]", {
         scale: 1.12,
