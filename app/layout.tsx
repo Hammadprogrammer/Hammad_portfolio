@@ -9,6 +9,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import Preloader from "@/components/Preloader";
 import DeferredChrome from "@/components/DeferredChrome";
 import JsonLd from "@/components/JsonLd";
+import Script from "next/script";
 import { siteUrl } from "@/lib/site";
 
 const display = Space_Grotesk({
@@ -155,6 +156,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer />
           </PageTransition>
         </SmoothScroll>
+        <Script
+          src="https://cdn.zanderio.ai/widget/loader.js"
+          data-id="wdg_rlX8IvwzIfiPZTsR5KMxz43s"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );
