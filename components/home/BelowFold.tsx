@@ -6,7 +6,6 @@ import Statement from "./Statement";
 import Services from "./Services";
 import TechStack from "./TechStack";
 import Stats from "./Stats";
-import Testimonials from "./Testimonials";
 import HomeCta from "./HomeCta";
 
 /**
@@ -28,7 +27,6 @@ export default function BelowFold() {
       <Services />
       <TechStack />
       <Stats />
-      <Testimonials />
       <HomeCta />
     </>
   );

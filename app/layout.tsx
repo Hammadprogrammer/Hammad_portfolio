@@ -123,7 +123,7 @@ const personSchema = {
   ],
   sameAs: [
     "https://github.com/Hammadprogrammer",
-    "https://www.linkedin.com/in/hammad-zahid-543a652a6/",
+    "https://www.linkedin.com/in/muhammad-hammad-543a652a6/",
   ],
 };
 

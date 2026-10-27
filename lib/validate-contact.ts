@@ -20,8 +20,8 @@ export function validateContact(fields: ContactFields): ContactErrors {
   if (!fields.projectType.trim()) {
     errs.projectType = "Please select a project type.";
   }
-  if (fields.message.trim().length < 20) {
-    errs.message = "Tell me a bit more — at least 20 characters.";
+  if (!fields.message.trim()) {
+    errs.message = "Please enter a message.";
   }
   return errs;
 }

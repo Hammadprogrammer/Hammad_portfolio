@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 import { Send, Check, AlertTriangle, Loader2 } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { useMagnetic } from "@/hooks/useMagnetic";
@@ -58,8 +59,18 @@ const inputCls =
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
+  const [showThanks, setShowThanks] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const btnRef = useMagnetic<HTMLButtonElement>(0.2);
+
+  useEffect(() => {
+    if (!showThanks) return;
+    const t = setTimeout(() => {
+      setShowThanks(false);
+      setStatus("idle");
+    }, 2000);
+    return () => clearTimeout(t);
+  }, [showThanks]);
 
   const validate = (fd: FormData): Errors =>
     validateContact({
@@ -73,7 +84,8 @@ export default function ContactForm() {
     e.preventDefault();
     if (status === "sending") return;
 
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const errs = validate(fd);
     setErrors(errs);
 
@@ -91,23 +103,10 @@ export default function ContactForm() {
     }
 
     setStatus("sending");
-    try {
-      // open the user's mail client with a prefilled message (no backend required)
-      const subject = encodeURIComponent(
-        `Project inquiry: ${fd.get("projectType")} — ${fd.get("name")}`
-      );
-      const body = encodeURIComponent(
-        `Name: ${fd.get("name")}\nEmail: ${fd.get("email")}\nProject type: ${fd.get(
-          "projectType"
-        )}\nBudget: ${fd.get("budget") || "—"}\n\n${fd.get("message")}`
-      );
-      await new Promise((r) => setTimeout(r, 900)); // brief state feedback
-      window.location.href = `mailto:hammadzahid221@gmail.com?subject=${subject}&body=${body}`;
-      setStatus("sent");
-      formRef.current?.reset();
-    } catch {
-      setStatus("error");
-    }
+    await new Promise((r) => setTimeout(r, 600));
+    setStatus("sent");
+    form.reset();
+    setShowThanks(true);
   };
 
   return (
@@ -232,6 +231,29 @@ export default function ContactForm() {
             "Please fix the highlighted fields."}
         </p>
       </div>
+
+      {showThanks &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Thank you"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-void/80 p-6 backdrop-blur-md"
+          >
+            <div className="glass flex max-w-sm flex-col items-center rounded-3xl px-10 py-12 text-center">
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-400/15 text-emerald-400">
+                <Check className="h-8 w-8" />
+              </span>
+              <h3 className="display-font mt-6 text-3xl font-semibold text-ice">
+                Thank <span className="text-gradient">you!</span>
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-silver">
+                Your message has been received. I usually respond within 24 hours.
+              </p>
+            </div>
+          </div>,
+          document.body
+        )}
     </form>
   );
 }

@@ -79,7 +79,7 @@ export default function Footer() {
                 <GithubIcon className="h-4 w-4" />
               </a>
               <a
-                href="https://www.linkedin.com/in/hammad-zahid-543a652a6/"
+                href="https://www.linkedin.com/in/muhammad-hammad-543a652a6/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ZoomIn } from "lucide-react";
 import { useReveal } from "@/hooks/useReveal";
@@ -122,36 +123,39 @@ export default function Education() {
       </div>
 
       {/* Certificate lightbox */}
-      {certOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Certificate full view"
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-void/90 p-4 backdrop-blur-md md:p-10"
-          onClick={() => setCertOpen(false)}
-        >
-          <button
-            type="button"
-            aria-label="Close certificate view"
-            onClick={() => setCertOpen(false)}
-            className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full border border-ice/20 bg-navy/80 text-ice transition-colors hover:border-cyan-glow hover:text-cyan-glow"
-          >
-            <X className="h-6 w-6" />
-          </button>
+      {certOpen &&
+        createPortal(
           <div
-            className="relative h-full max-h-[90vh] w-full max-w-4xl"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Certificate full view"
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-void/90 p-4 backdrop-blur-md md:p-10"
+            onClick={() => setCertOpen(false)}
           >
-            <Image
-              src="/edu/saylani-certificate-b11.webp"
-              alt="Saylani Mass IT Training certificate — full view"
-              fill
-              sizes="100vw"
-              className="object-contain"
-            />
-          </div>
-        </div>
-      )}
+            <button
+              type="button"
+              aria-label="Close certificate view"
+              onClick={(e) => {
+                e.stopPropagation();
+                setCertOpen(false);
+              }}
+              className="absolute right-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-ice/20 bg-navy/80 text-ice transition-colors hover:border-cyan-glow hover:text-cyan-glow md:right-6 md:top-6"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <div className="pointer-events-none relative h-full max-h-[90vh] w-full max-w-4xl">
+              <Image
+                src="/edu/saylani-certificate-b11.webp"
+                alt="Saylani Mass IT Training certificate — full view"
+                fill
+                sizes="100vw"
+                className="pointer-events-auto object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 }

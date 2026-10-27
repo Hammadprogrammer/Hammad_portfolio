@@ -8,7 +8,7 @@ import SectionHeader from "@/components/SectionHeader";
 const STATS = [
   { value: 40, suffix: "+", label: "Projects shipped", tone: "text-cyan-glow" },
   { value: 4, suffix: "+", label: "Years building", tone: "text-violet-glow" },
-  { value: 30, suffix: "+", label: "Happy clients", tone: "text-ice" },
+  { value: 35, suffix: "+", label: "Happy clients", tone: "text-ice" },
   { value: 100, suffix: "%", label: "On-time delivery", tone: "text-cyan-glow" },
 ];
 

@@ -164,12 +164,12 @@ export default function ContactView() {
                 <div>
                   <p className="mono-font text-[10px] uppercase tracking-[0.3em] text-silver">LinkedIn</p>
                   <a
-                    href="https://www.linkedin.com/in/hammad-zahid-543a652a6/"
+                    href="https://www.linkedin.com/in/muhammad-hammad-543a652a6/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link-underline text-sm text-ice"
                   >
-                    linkedin.com/in/hammad-zahid
+                    linkedin.com/in/muhammad-hammad
                   </a>
                 </div>
               </li>
