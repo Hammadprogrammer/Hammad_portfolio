@@ -6,10 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "test": "vitest run",
-    "perf": "node tests/lighthouse.mjs",
-    "test:watch": "vitest"
+    "lint": "eslint"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
@@ -30,11 +27,7 @@
     "@types/three": "^0.185.4",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
-    "jsdom": "^30.0.1",
-    "lighthouse": "^13.4.1",
-    "puppeteer-core": "^25.8.0",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "vitest": "^4.1.11"
+    "typescript": "^5"
   }
 }
