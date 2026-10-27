@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
-import { gsap, ScrollTrigger, useGsapLayoutEffect } from "@/lib/gsap";
+import { gsap, useGsapLayoutEffect } from "@/lib/gsap";
 import { scrollState, prefersReducedMotion } from "@/lib/scroll-state";
 import { scrollToTarget } from "@/lib/lenis-store";
 import { whenPreloaderDone } from "@/lib/preloader-state";
@@ -94,10 +94,7 @@ export default function Hero() {
       };
 
       /* ---------- pinned scroll choreography ---------- */
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 768px)", () => {
-        const tl = gsap.timeline({
+      const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pin,
             start: "top top",
@@ -134,27 +131,6 @@ export default function Hero() {
         // gentle drift while the keywords hold, then hand-off scale
         tl.to(keywordsRef.current, { yPercent: -6, duration: 0.35, ease: "none" }, 0.5)
           .to(content, { scale: 0.96, duration: 0.2 }, 0.82);
-      });
-
-      mm.add("(max-width: 767px)", () => {
-        // lighter mobile pin: text out, then keywords take the stage
-        ScrollTrigger.create({
-          trigger: pin,
-          start: "top top",
-          end: "+=120%",
-          pin: true,
-          onUpdate: (self) => {
-            const p = self.progress;
-            scrollState.hero = p;
-            showText(p < 0.4);
-            showKeywords(p >= 0.45 ? "in" : "before");
-          },
-          onLeaveBack: () => {
-            showText(true);
-            showKeywords("before");
-          },
-        });
-      });
     }, pin);
 
     return () => {

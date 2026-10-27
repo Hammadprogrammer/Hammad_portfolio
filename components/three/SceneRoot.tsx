@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Fallback from "./Fallback";
-import { prefersReducedMotion, isTouchDevice } from "@/lib/scroll-state";
+import { prefersReducedMotion } from "@/lib/scroll-state";
 import { onFirstInteraction } from "@/lib/first-interaction";
 
 const Scene = dynamic(() => import("./Scene"), {
@@ -30,7 +30,6 @@ function supportsWebGL(): boolean {
  */
 function shouldRenderWebGL(): boolean {
   if (prefersReducedMotion() || !supportsWebGL()) return false;
-  if (isTouchDevice() || window.innerWidth < 1024) return false;
 
   const nav = navigator as Navigator & {
     connection?: { saveData?: boolean; effectiveType?: string };
@@ -39,8 +38,8 @@ function shouldRenderWebGL(): boolean {
   if (nav.connection?.saveData) return false;
   if (nav.connection?.effectiveType && /2g|3g/.test(nav.connection.effectiveType))
     return false;
-  if (typeof nav.deviceMemory === "number" && nav.deviceMemory < 4) return false;
-  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4)
+  if (typeof nav.deviceMemory === "number" && nav.deviceMemory < 2) return false;
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2)
     return false;
 
   return true;

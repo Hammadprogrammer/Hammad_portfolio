@@ -40,39 +40,35 @@ export default function Services() {
     if (!pin || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 768px)", () => {
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: pin,
-            start: "top top",
-            end: "+=280%",
-            pin: true,
-            scrub: true,
-            snap: {
-              snapTo: (v: number) =>
-                Math.min(
-                  0.999,
-                  (Math.floor(v * SERVICES.length) + 0.5) / SERVICES.length
-                ),
-              duration: { min: 0.3, max: 0.7 },
-              delay: 0.05,
-              ease: "power2.inOut",
-            },
-            onToggle: (self) => {
-              scrollState.servicesActive = self.isActive ? 1 : 0;
-            },
-            onUpdate: (self) => {
-              const idx = Math.min(
-                SERVICES.length - 1,
-                Math.floor(self.progress * SERVICES.length)
-              );
-              scrollState.service = idx;
-              setActive((prev) => (prev === idx ? prev : idx));
-            },
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: pin,
+          start: "top top",
+          end: "+=280%",
+          pin: true,
+          scrub: true,
+          snap: {
+            snapTo: (v: number) =>
+              Math.min(
+                0.999,
+                (Math.floor(v * SERVICES.length) + 0.5) / SERVICES.length
+              ),
+            duration: { min: 0.3, max: 0.7 },
+            delay: 0.05,
+            ease: "power2.inOut",
           },
-        });
+          onToggle: (self) => {
+            scrollState.servicesActive = self.isActive ? 1 : 0;
+          },
+          onUpdate: (self) => {
+            const idx = Math.min(
+              SERVICES.length - 1,
+              Math.floor(self.progress * SERVICES.length)
+            );
+            scrollState.service = idx;
+            setActive((prev) => (prev === idx ? prev : idx));
+          },
+        },
       });
     }, pin);
 
@@ -110,10 +106,9 @@ export default function Services() {
   const s = SERVICES[active];
 
   return (
-    <section ref={pinRef} id="services" className="relative z-10 md:h-screen" aria-label="Services">
-      {/* Desktop pinned composition */}
-      <div className="hidden h-full items-center md:flex">
-        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-[auto_1fr] items-center gap-16 px-10">
+    <section ref={pinRef} id="services" className="relative z-10 h-screen" aria-label="Services">
+      <div className="flex h-full items-center">
+        <div className="mx-auto grid w-full max-w-[1600px] grid-cols-[auto_1fr] items-center gap-8 px-6 md:gap-16 md:px-10">
           {/* index rail */}
           <ol className="flex flex-col gap-6">
             {SERVICES.map((sv, i) => (
@@ -137,7 +132,7 @@ export default function Services() {
           </ol>
 
           {/* stage */}
-          <div ref={stageRef} className="relative">
+          <div ref={stageRef} className="relative min-w-0">
             <ServiceEnv env={s.env} />
             <p className="mono-font mb-4 flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-silver">
               <span className="text-cyan-glow">03</span>
@@ -147,28 +142,16 @@ export default function Services() {
             <div className="overflow-hidden">
               <h2
                 data-service-title
-                className="display-font text-[5vw] font-semibold leading-[1.02] text-ice"
+                className="display-font text-[9vw] font-semibold leading-[1.02] text-ice md:text-[5vw]"
               >
                 {s.title}
               </h2>
             </div>
-            <p data-service-desc className="mt-6 max-w-xl text-base leading-relaxed text-silver">
+            <p data-service-desc className="mt-6 max-w-xl text-sm leading-relaxed text-silver md:text-base">
               {s.desc}
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Mobile stacked version */}
-      <div className="flex flex-col gap-12 px-6 py-16 md:hidden">
-        <p className="mono-font flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-silver">
-          <span className="text-cyan-glow">03</span>
-          <span className="inline-block h-px w-8 bg-ice/20" />
-          What I do
-        </p>
-        {SERVICES.map((sv) => (
-          <MobileService key={sv.id} sv={sv} />
-        ))}
       </div>
     </section>
   );
@@ -180,7 +163,7 @@ function ServiceEnv({ env }: { env: string }) {
     <div
       data-service-env
       aria-hidden="true"
-      className="pointer-events-none absolute -top-24 right-0 h-64 w-64 opacity-70"
+      className="pointer-events-none absolute -top-24 right-0 h-48 w-48 opacity-50 md:h-64 md:w-64 md:opacity-70"
     >
       {env === "ui" &&
         [0, 1, 2].map((i) => (
@@ -231,35 +214,6 @@ function ServiceEnv({ env }: { env: string }) {
             }}
           />
         ))}
-    </div>
-  );
-}
-
-function MobileService({ sv }: { sv: (typeof SERVICES)[number] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          scrollTrigger: { trigger: el, start: "top 85%" },
-        }
-      );
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div ref={ref} className="border-l border-cyan-glow/25 pl-5">
-      <span className="mono-font text-xs text-cyan-glow">{sv.id}</span>
-      <h3 className="display-font mt-2 text-2xl font-semibold text-ice">{sv.title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-silver">{sv.desc}</p>
     </div>
   );
 }

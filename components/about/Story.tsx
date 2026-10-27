@@ -62,62 +62,43 @@ export default function Story() {
     if (!pin || !track || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 768px)", () => {
-        const getDistance = () => track.scrollWidth - window.innerWidth;
-        const scrollTween = gsap.to(track, {
-          x: () => -getDistance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: pin,
-            start: "top top",
-            end: () => `+=${getDistance()}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            snap: {
-              snapTo: 1 / (STAGES.length - 1),
-              duration: { min: 0.3, max: 0.8 },
-              delay: 0.05,
-              ease: "power2.inOut",
-            },
+      const getDistance = () => track.scrollWidth - window.innerWidth;
+      const scrollTween = gsap.to(track, {
+        x: () => -getDistance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: pin,
+          start: "top top",
+          end: () => `+=${getDistance()}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (STAGES.length - 1),
+            duration: { min: 0.3, max: 0.8 },
+            delay: 0.05,
+            ease: "power2.inOut",
           },
-        });
-
-        // per-stage parallax on inner content
-        gsap.utils.toArray<HTMLElement>("[data-stage-inner]", track).forEach((inner) => {
-          gsap.fromTo(
-            inner,
-            { opacity: 0.3, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              scrollTrigger: {
-                trigger: inner,
-                containerAnimation: scrollTween,
-                start: "left 80%",
-                end: "left 40%",
-                scrub: true,
-              },
-            }
-          );
-        });
+        },
       });
 
-      mm.add("(max-width: 767px)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-stage]", pin).forEach((stage) => {
-          gsap.fromTo(
-            stage,
-            { opacity: 0, y: 60 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.9,
-              scrollTrigger: { trigger: stage, start: "top 85%" },
-            }
-          );
-        });
+      // per-stage parallax on inner content
+      gsap.utils.toArray<HTMLElement>("[data-stage-inner]", track).forEach((inner) => {
+        gsap.fromTo(
+          inner,
+          { opacity: 0.3, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: inner,
+              containerAnimation: scrollTween,
+              start: "left 80%",
+              end: "left 40%",
+              scrub: true,
+            },
+          }
+        );
       });
     }, pin);
 
@@ -128,10 +109,10 @@ export default function Story() {
     <section
       ref={pinRef}
       id="journey"
-      className="relative z-10 overflow-hidden md:h-screen"
+      className="relative z-10 h-screen overflow-hidden"
       aria-label="My journey"
     >
-      <div className="px-6 pt-24 md:absolute md:left-10 md:top-16 md:z-20 md:px-0 md:pt-0">
+      <div className="absolute left-6 top-24 z-20 md:left-10 md:top-16">
         <p className="mono-font text-[10px] uppercase tracking-[0.4em] text-silver">
           The journey
         </p>
@@ -142,30 +123,30 @@ export default function Story() {
 
       <div
         ref={trackRef}
-        className="mt-12 flex flex-col gap-16 px-6 pb-24 md:mt-0 md:h-full md:w-max md:flex-row md:items-center md:gap-0 md:px-0 md:pb-0"
+        className="flex h-full w-max items-center"
       >
         {STAGES.map((s, i) => (
           <div
             key={s.id}
             data-stage
-            className="md:flex md:h-full md:w-screen md:items-center md:px-[8vw]"
+            className="flex h-full w-screen items-center px-6 pt-28 md:px-[8vw] md:pt-0"
           >
             <div data-stage-inner className="max-w-xl">
               <div className="flex items-baseline gap-6">
-                <span className={`display-font text-6xl font-bold opacity-45 md:text-9xl ${s.accent}`}>
+                <span className={`display-font text-5xl font-bold opacity-45 md:text-9xl ${s.accent}`}>
                   {s.id}
                 </span>
                 <div>
                   <span className="mono-font text-[10px] uppercase tracking-[0.35em] text-silver">
                     Stage {i + 1} / {STAGES.length}
                   </span>
-                  <h3 className={`display-font mt-1 text-3xl font-semibold md:text-5xl ${s.accent}`}>
+                  <h3 className={`display-font mt-1 text-2xl font-semibold md:text-5xl ${s.accent}`}>
                     {s.label}
                   </h3>
                 </div>
               </div>
               <span className={`mt-6 block h-px w-24 ${s.bar}`} />
-              <p className="mt-6 text-base leading-relaxed text-silver md:text-lg">
+              <p className="mt-6 text-sm leading-relaxed text-silver md:text-lg">
                 {s.story}
               </p>
               <ul className="mt-6 flex flex-wrap gap-2">

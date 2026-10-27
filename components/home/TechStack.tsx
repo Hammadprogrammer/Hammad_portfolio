@@ -105,42 +105,38 @@ export default function TechStack() {
         }
       );
 
-      const mm = gsap.matchMedia();
+      const getDistance = () => track.scrollWidth - window.innerWidth;
+      const scrollTween = gsap.to(track, {
+        x: () => -getDistance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: pin,
+          start: "top top",
+          end: () => `+=${getDistance()}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-      mm.add("(min-width: 768px)", () => {
-        const getDistance = () => track.scrollWidth - window.innerWidth;
-        const scrollTween = gsap.to(track, {
-          x: () => -getDistance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: pin,
-            start: "top top",
-            end: () => `+=${getDistance()}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // y-motion inside the x-scroll: each tile rides a wave as it crosses
-        gsap.utils.toArray<HTMLElement>("[data-tech]", track).forEach((tile, i) => {
-          gsap.fromTo(
-            tile,
-            { y: WAVE[i % WAVE.length], rotation: i % 2 ? 2.5 : -2.5 },
-            {
-              y: -WAVE[i % WAVE.length],
-              rotation: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: tile,
-                containerAnimation: scrollTween,
-                start: "left right",
-                end: "right left",
-                scrub: true,
-              },
-            }
-          );
-        });
+      // y-motion inside the x-scroll: each tile rides a wave as it crosses
+      gsap.utils.toArray<HTMLElement>("[data-tech]", track).forEach((tile, i) => {
+        gsap.fromTo(
+          tile,
+          { y: WAVE[i % WAVE.length], rotation: i % 2 ? 2.5 : -2.5 },
+          {
+            y: -WAVE[i % WAVE.length],
+            rotation: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: tile,
+              containerAnimation: scrollTween,
+              start: "left right",
+              end: "right left",
+              scrub: true,
+            },
+          }
+        );
       });
     }, pin);
 
@@ -185,10 +181,10 @@ export default function TechStack() {
     <section
       ref={pinRef}
       id="stack"
-      className="relative z-10 overflow-hidden md:h-screen"
+      className="relative z-10 h-screen overflow-hidden"
       aria-label="Technology stack"
     >
-      <div className="flex h-full flex-col justify-center py-16 md:py-0">
+      <div className="flex h-full flex-col justify-center">
         <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10">
           <SectionHeader
             index="04"
@@ -201,10 +197,10 @@ export default function TechStack() {
           />
         </div>
 
-        {/* desktop: pinned horizontal track / mobile: 2-column grid (everything visible) */}
+        {/* pinned horizontal track */}
         <div
           ref={trackRef}
-          className="mt-14 grid grid-cols-2 gap-4 px-6 pb-6 md:mt-16 md:flex md:w-max md:items-center md:gap-6 md:overflow-visible md:px-[10vw] md:pb-0"
+          className="mt-10 flex w-max items-center gap-4 px-6 md:mt-16 md:gap-6 md:px-[10vw]"
           style={{ perspective: "800px" }}
         >
           {TECHS.map((t, i) => {
@@ -217,7 +213,7 @@ export default function TechStack() {
                   key={t.name}
                   data-tech
                   style={themeVars(t.color)}
-                  className={`glass group relative flex h-44 w-full shrink-0 flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br p-4 ${t.grad} transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:h-64 md:w-72 md:p-5`}
+                  className={`glass group relative flex h-52 w-60 shrink-0 flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br p-4 ${t.grad} transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:h-64 md:w-72 md:p-5`}
                 >
                   <div className="flex items-start justify-between">
                     <Icon aria-hidden="true" className="h-8 w-8 md:h-10 md:w-10" style={{ color: t.color }} />
@@ -247,7 +243,7 @@ export default function TechStack() {
                   key={t.name}
                   data-tech
                   style={themeVars(t.color)}
-                  className="group relative flex h-44 w-full shrink-0 flex-col justify-between rounded-2xl border border-ice/15 bg-transparent p-4 transition-all duration-500 hover:border-[var(--accent)] hover:shadow-[0_0_50px_var(--glow)] md:h-52 md:w-60 md:p-5"
+                  className="group relative flex h-44 w-48 shrink-0 flex-col justify-between rounded-2xl border border-ice/15 bg-transparent p-4 transition-all duration-500 hover:border-[var(--accent)] hover:shadow-[0_0_50px_var(--glow)] md:h-52 md:w-60 md:p-5"
                 >
                   <div className="flex items-center justify-between">
                     <Icon aria-hidden="true" className="h-7 w-7 md:h-9 md:w-9" style={{ color: t.color }} />
@@ -279,7 +275,7 @@ export default function TechStack() {
                 key={t.name}
                 data-tech
                 style={themeVars(t.color)}
-                className="glass group relative flex aspect-square h-auto w-full shrink-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-full p-4 text-center transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:aspect-auto md:h-56 md:w-56 md:gap-3 md:p-6"
+                className="glass group relative flex h-44 w-44 shrink-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-full p-4 text-center transition-shadow duration-500 hover:shadow-[0_0_60px_var(--glow)] md:h-56 md:w-56 md:gap-3 md:p-6"
               >
                 <div
                   className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-b opacity-60 ${t.grad}`}
